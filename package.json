@@ -11,7 +11,8 @@
     "test": "vitest --run",
     "test:watch": "vitest",
     "test:ui": "vitest --ui",
-    "prepare": "husky install"
+    "prepare": "husky install",
+    "format": "git diff --name-only --diff-filter=d --cached | xargs prettier --list-different --write"
   },
   "dependencies": {
     "@apollo/client": "^3.7.14",
