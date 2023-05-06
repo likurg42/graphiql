@@ -8,8 +8,10 @@
     "build": "tsc && vite build",
     "lint": "eslint src --ext ts,tsx --report-unused-disable-directives --max-warnings 0 && tsc",
     "preview": "vite preview",
-    "test": "vitest",
-    "test:ui": "vitest --ui"
+    "test": "vitest --run",
+    "test:watch": "vitest",
+    "test:ui": "vitest --ui",
+    "prepare": "husky install"
   },
   "dependencies": {
     "@apollo/client": "^3.7.14",
@@ -39,6 +41,7 @@
     "jsdom": "^22.0.0",
     "typescript": "^5.0.4",
     "vite": "^4.3.2",
-    "vitest": "^0.31.0"
+    "vitest": "^0.31.0",
+    "husky": "^8.0.0"
   }
 }
