@@ -1,4 +1,5 @@
 import * as React from 'react';
+import styled from 'styled-components';
 import fetch from 'cross-fetch';
 import { gql, useLazyQuery } from '@apollo/client';
 
@@ -8,6 +9,12 @@ interface Post {
   title: string;
   body: string;
 }
+
+const Title = styled.h1`
+  font-size: 1.5em;
+  text-align: center;
+  color: palevioletred;
+`;
 
 export const App = () => {
   const [posts, setPosts] = React.useState<Post[]>([]);
@@ -40,7 +47,7 @@ export const App = () => {
 
   return (
     <main className="App">
-      <h1>MSW Testing Library Example</h1>
+      <Title>MSW Testing Library Example</Title>
       {isLoading && <span aria-label="loading">Loading...</span>}
       {posts.length > 0 &&
         posts.map((post) => (
