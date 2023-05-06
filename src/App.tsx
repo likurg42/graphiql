@@ -48,6 +48,7 @@ export const App = () => {
   return (
     <main className="App">
       <Title>MSW Testing Library Example</Title>
+      <h2>Subtitle</h2>
       {isLoading && <span aria-label="loading">Loading...</span>}
       {posts.length > 0 &&
         posts.map((post) => (

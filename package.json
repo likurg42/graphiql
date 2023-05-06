@@ -6,10 +6,14 @@
   "scripts": {
     "dev": "vite",
     "build": "tsc && vite build",
-    "lint": "eslint src --ext ts,tsx --report-unused-disable-directives --max-warnings 0 && tsc",
+    "lint": "eslint src --ext ts,tsx",
+    "lint:fix": "eslint --fix",
+    "lint:type": "tsc-files",
+    "type-lint": "tsc",
     "preview": "vite preview",
     "test": "vitest --run",
     "test:watch": "vitest",
+    "test:related": "vitest --run related",
     "test:ui": "vitest --ui",
     "prepare": "husky install",
     "format": "git diff --name-only --diff-filter=d --cached | xargs prettier --list-different --write"
@@ -45,9 +49,18 @@
     "eslint-plugin-react-refresh": "^0.3.4",
     "husky": "^8.0.0",
     "jsdom": "^22.0.0",
+    "lint-staged": "^13.2.2",
     "prettier": "^2.8.8",
+    "tsc-files": "^1.1.3",
     "typescript": "^5.0.4",
     "vite": "^4.3.2",
     "vitest": "^0.31.0"
+  },
+  "lint-staged": {
+    "*.{ts,tsx}": [
+      "npm run lint:type",
+      "npm run lint:fix",
+      "npm run test:related"
+    ]
   }
 }
