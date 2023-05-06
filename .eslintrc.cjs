@@ -9,6 +9,8 @@ module.exports = {
     'airbnb',
     'airbnb-typescript',
     'airbnb/hooks',
+    'prettier',
+    'plugin:prettier/recommended',
   ],
   parser: '@typescript-eslint/parser',
   parserOptions: {
@@ -28,6 +30,7 @@ module.exports = {
     'react-hooks',
     'react-refresh',
     'import',
+    'prettier',
   ],
   rules: {
     'comma-dangle': ['error', 'only-multiline'],

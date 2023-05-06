@@ -25,12 +25,15 @@ export const posts = [
 const jsonPlaceHolder = graphql.link('https://jsonplaceholder.ir/graphql');
 // Define handlers that catch the corresponding requests and returns the mock data.
 export const handlers = [
-  rest.get('https://jsonplaceholder.typicode.com/posts', (_, res, ctx) => res(ctx.status(200), ctx.json(posts))),
+  rest.get('https://jsonplaceholder.typicode.com/posts', (_, res, ctx) =>
+    res(ctx.status(200), ctx.json(posts))
+  ),
 
-  jsonPlaceHolder.query('posts', (_, res, ctx) => res(
-    ctx.data({
-      posts,
-    }),
-  )),
-
+  jsonPlaceHolder.query('posts', (_, res, ctx) =>
+    res(
+      ctx.data({
+        posts,
+      })
+    )
+  ),
 ];

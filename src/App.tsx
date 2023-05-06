@@ -24,43 +24,46 @@ export const App = () => {
 
   // GraphQL API
   const GET_POSTS = gql`
-      query posts {
-          posts {
-              userId
-              id
-              title
-              body
-          }
+    query posts {
+      posts {
+        userId
+        id
+        title
+        body
       }
+    }
   `;
   const [postsGql, setPostsGql] = React.useState<Post[]>([]);
-  const [runQuery, {
-    loading,
-    data,
-  }] = useLazyQuery<{
-    posts: Post[]
+  const [runQuery, { loading, data }] = useLazyQuery<{
+    posts: Post[];
   }>(GET_POSTS, { onCompleted: () => setPostsGql(data?.posts || []) });
 
   return (
     <main className="App">
       <h1>MSW Testing Library Example</h1>
       {isLoading && <span aria-label="loading">Loading...</span>}
-      {posts.length > 0 && posts.map((post) => (
-        <article key={post.id}>
-          <h2>{post.title}</h2>
-          <p>{post.body}</p>
-        </article>
-      ))}
-      <button type="button" onClick={() => fetchPosts()}>Fetch Posts</button>
+      {posts.length > 0 &&
+        posts.map((post) => (
+          <article key={post.id}>
+            <h2>{post.title}</h2>
+            <p>{post.body}</p>
+          </article>
+        ))}
+      <button type="button" onClick={() => fetchPosts()}>
+        Fetch Posts
+      </button>
 
       {loading && <span aria-label="loading">Loading...</span>}
-      {postsGql.length > 0 && postsGql.map((post) => (
-        <article key={post.id}>
-          <h2>{post.title}</h2>
-          <p>{post.body}</p>
-        </article>
-      ))}
-      <button type="button" onClick={() => runQuery()}>Fetch Posts GraphQL</button>
+      {postsGql.length > 0 &&
+        postsGql.map((post) => (
+          <article key={post.id}>
+            <h2>{post.title}</h2>
+            <p>{post.body}</p>
+          </article>
+        ))}
+      <button type="button" onClick={() => runQuery()}>
+        Fetch Posts GraphQL
+      </button>
     </main>
   );
 };
