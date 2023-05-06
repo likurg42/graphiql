@@ -1,39 +1,66 @@
-import { useState } from 'react';
-import reactLogo from './assets/react.svg';
-import viteLogo from '../../../../../../vite.svg';
-import './App.css';
+import * as React from 'react';
+import fetch from 'cross-fetch';
+import { gql, useLazyQuery } from '@apollo/client';
+
+interface Post {
+  userId: number;
+  id: number;
+  title: string;
+  body: string;
+}
 
 export const App = () => {
-  const [count, setCount] = useState(0);
+  const [posts, setPosts] = React.useState<Post[]>([]);
+  const [isLoading, setIsLoading] = React.useState(false);
+
+  const fetchPosts = async () => {
+    setIsLoading(true);
+    await fetch('https://jsonplaceholder.typicode.com/posts')
+      .then((res) => res.json())
+      .then((resPosts: Post[]) => setPosts(resPosts));
+
+    setIsLoading(false);
+  };
+
+  // GraphQL API
+  const GET_POSTS = gql`
+      query posts {
+          posts {
+              userId
+              id
+              title
+              body
+          }
+      }
+  `;
+  const [postsGql, setPostsGql] = React.useState<Post[]>([]);
+  const [runQuery, {
+    loading,
+    data,
+  }] = useLazyQuery<{
+    posts: Post[]
+  }>(GET_POSTS, { onCompleted: () => setPostsGql(data?.posts || []) });
 
   return (
-    <>
-      <div>
-        <a href="https://vitejs.dev" target="_blank" rel="noreferrer">
-          <img src={viteLogo} className="logo" alt="Vite logo" />
-        </a>
-        <a href="https://react.dev" target="_blank" rel="noreferrer">
-          <img src={reactLogo} className="logo react" alt="React logo" />
-        </a>
-      </div>
-      <h1>Vite + React</h1>
-      <div className="card">
-        <button type="button" onClick={() => setCount((currCount) => currCount + 1)}>
-          count is
-          {' '}
-          {count}
-        </button>
-        <p>
-          Edit
-          {' '}
-          <code>src/App.tsx</code>
-          {' '}
-          and save to test HMR
-        </p>
-      </div>
-      <p className="read-the-docs">
-        Click on the Vite and React logos to learn more
-      </p>
-    </>
+    <main className="App">
+      <h1>MSW Testing Library Example</h1>
+      {isLoading && <span aria-label="loading">Loading...</span>}
+      {posts.length > 0 && posts.map((post) => (
+        <article key={post.id}>
+          <h2>{post.title}</h2>
+          <p>{post.body}</p>
+        </article>
+      ))}
+      <button type="button" onClick={() => fetchPosts()}>Fetch Posts</button>
+
+      {loading && <span aria-label="loading">Loading...</span>}
+      {postsGql.length > 0 && postsGql.map((post) => (
+        <article key={post.id}>
+          <h2>{post.title}</h2>
+          <p>{post.body}</p>
+        </article>
+      ))}
+      <button type="button" onClick={() => runQuery()}>Fetch Posts GraphQL</button>
+    </main>
   );
 };

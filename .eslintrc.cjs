@@ -17,8 +17,11 @@ module.exports = {
     ecmaFeatures: {
       jsx: true,
     },
-    project: './tsconfig.json',
+    project: ['./tsconfig.json'],
   },
+  ignorePatterns: [
+    'vite.config.ts',
+  ],
   plugins: [
     '@typescript-eslint',
     'react',
