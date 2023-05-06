@@ -1,5 +1,5 @@
-const PlaygroundPage = () => {
-  return <h1>Playgroung Page</h1>;
-};
+import Content from '../../components/Content';
+
+const PlaygroundPage = () => <Content>PlaygroundPage</Content>;
 
 export default PlaygroundPage;

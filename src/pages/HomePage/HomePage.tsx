@@ -1,5 +1,5 @@
-const HomePage = () => {
-  return <h1>Home Page</h1>;
-};
+import Content from '../../components/Content';
+
+const HomePage = () => <Content>Home Page</Content>;
 
 export default HomePage;

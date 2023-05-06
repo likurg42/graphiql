@@ -1,5 +1,5 @@
-const ErrorPage = () => {
-  return <>Ops 404</>;
-};
+import Content from '../../components/Content';
+
+const ErrorPage = () => <Content>ErrorPage</Content>;
 
 export default ErrorPage;
