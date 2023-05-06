@@ -11,9 +11,9 @@
     "lint:type": "tsc-files",
     "type-lint": "tsc",
     "preview": "vite preview",
-    "test": "vitest --run",
+    "test": "vitest --run  --passWithNoTests",
     "test:watch": "vitest",
-    "test:related": "vitest --run related",
+    "test:related": "vitest --run related --passWithNoTests",
     "test:ui": "vitest --ui",
     "prepare": "husky install",
     "format": "git diff --name-only --diff-filter=d --cached | xargs prettier --list-different --write"
