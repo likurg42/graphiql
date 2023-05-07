@@ -29,7 +29,7 @@ const Header = () => (
   <Wrapper>
     <Logo>GraphiQL</Logo>
     <Nav>
-      <StyledLink to="/auth">Sign In</StyledLink>
+      <StyledLink to="/signin">Sign In</StyledLink>
       <StyledLink to="/signup">Sign Up</StyledLink>
     </Nav>
   </Wrapper>

@@ -1,11 +1,11 @@
 import Title from '../../components/Title';
-import { SignForm } from './SignUpForm';
+import { SignInForm } from './SignInForm';
 
 const SignUpPage = () => {
   return (
     <>
-      <Title>Sign Up</Title>
-      <SignForm />
+      <Title>Sign In</Title>
+      <SignInForm />
     </>
   );
 };

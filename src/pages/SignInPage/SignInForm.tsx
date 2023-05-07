@@ -1,7 +1,7 @@
 import styled from 'styled-components';
 import Button from '../../components/Button';
 
-const StyledSignForm = styled.form`
+const StyledForm = styled.form`
   display: flex;
   flex-direction: column;
   width: 386px;
@@ -50,33 +50,33 @@ const StyledSignForm = styled.form`
       }
     }
   }
+  & a {
+    text-decoration: none;
+    color: inherit;
+    font-weight: bold;
+    &:hover {
+      text-decoration: underline;
+    }
+  }
 `;
 
 const StyledWrapper = styled.div`
   display: flex;
+  justify-content: space-between;
 `;
 
-export const SignForm = () => {
+export const SignInForm = () => {
   return (
-    <StyledSignForm>
+    <StyledForm>
       <label htmlFor="username">Username</label>
       <input id="username" type="text" />
-      <label htmlFor="email">Email</label>
-      <input id="email" type="email" />
 
       <label htmlFor="password">Password</label>
       <input id="password" type="password" />
-
-      <label htmlFor="repeat-password">Repeat Password</label>
-      <input id="repeat-password" type="password" />
-      <label htmlFor="terms">
-        <input id="terms" type="checkbox" />
-        <span />I agree to the <a href="/"> Terms of User</a>
-      </label>
       <StyledWrapper>
-        <Button primary>Sign up </Button>
-        <Button primary={false}>Sign in </Button>
+        <Button primary>Sign in </Button>
+        <Button primary={false}>Sign up </Button>
       </StyledWrapper>
-    </StyledSignForm>
+    </StyledForm>
   );
 };
