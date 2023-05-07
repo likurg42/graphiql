@@ -1,3 +1,9 @@
+@import './normalize.css';
+
 html {
   font-family: sans-serif;
+}
+
+#root {
+  width: 100%;
 }
