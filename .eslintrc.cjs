@@ -35,6 +35,7 @@ module.exports = {
   rules: {
     'comma-dangle': ['error', 'only-multiline'],
     'import/prefer-default-export': 'off',
+    'jsx-a11y/label-has-associated-control': 'off',
     'import/extensions': [
       'error',
       'ignorePackages',

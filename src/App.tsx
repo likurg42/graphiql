@@ -6,6 +6,7 @@ import HomePage from './pages/HomePage/HomePage';
 import PlaygroundPage from './pages/PlaygroundPage/PlaygroundPage';
 import Header from './components/Header';
 import Footer from './components/Footer';
+import SignUpPage from './pages/SignUpPage/SignUpPage';
 
 const Container = styled.div`
   margin: 0 auto;
@@ -21,6 +22,7 @@ export const App = () => {
         <Route path="/" element={<HomePage />} />
         <Route path="/ide" element={<PlaygroundPage />} />
         <Route path="/auth" element={<AuthPage />} />
+        <Route path="/signup" element={<SignUpPage />} />
         <Route path="*" element={<ErrorPage />} />
       </Routes>
       <Footer />
