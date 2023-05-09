@@ -1,4 +1,5 @@
 import styled from 'styled-components';
+import { Link } from 'react-router-dom';
 import Button from '../../components/Button';
 
 const StyledForm = styled.form`
@@ -75,7 +76,9 @@ export const SignInForm = () => {
       <input id="password" type="password" />
       <StyledWrapper>
         <Button primary>Sign in </Button>
-        <Button primary={false}>Sign up </Button>
+        <Link to="/signup">
+          <Button primary={false}>Sign up</Button>
+        </Link>
       </StyledWrapper>
     </StyledForm>
   );

@@ -25,10 +25,13 @@ const StyledButton = styled.button<ButtonProps>`
 interface ButtonProps {
   primary: boolean;
   children: React.ReactNode;
+  type?: 'reset' | 'submit' | 'button';
 }
 
-const Button: React.FC<ButtonProps> = ({ primary, children }) => (
-  <StyledButton primary={primary}>{children}</StyledButton>
+const Button: React.FC<ButtonProps> = ({ primary, children, type = 'button' }) => (
+  <StyledButton type={type} primary={primary}>
+    {children}
+  </StyledButton>
 );
 
 export default Button;

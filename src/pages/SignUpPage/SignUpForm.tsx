@@ -1,4 +1,6 @@
 import styled from 'styled-components';
+import { useForm } from 'react-hook-form';
+import { Link } from 'react-router-dom';
 import Button from '../../components/Button';
 
 const StyledForm = styled.form`
@@ -27,7 +29,7 @@ const StyledForm = styled.form`
     padding: 13px 10px;
     font-size: 20px;
     border-radius: 0;
-    margin-bottom: 30px;
+    margin-bottom: 10px;
     &:focus {
       outline: none;
     }
@@ -58,6 +60,11 @@ const StyledForm = styled.form`
       text-decoration: underline;
     }
   }
+  & .error {
+    font-size: 12px;
+    color: red;
+    margin-bottom: 10px;
+  }
 `;
 
 const StyledWrapper = styled.div`
@@ -65,29 +72,107 @@ const StyledWrapper = styled.div`
   justify-content: space-between;
 `;
 
-export const SignForm = () => {
+interface FormData {
+  username: string;
+  email: string;
+  password: string;
+  repeat_password: string;
+  terms: boolean;
+}
+
+export const SignUpForm = () => {
+  const {
+    register,
+    handleSubmit,
+    watch,
+    formState: { errors },
+  } = useForm<FormData>({ reValidateMode: 'onSubmit' });
+  const onSubmit = (data: FormData) => console.log(data);
   return (
-    <StyledForm>
+    <StyledForm noValidate onSubmit={handleSubmit(onSubmit)}>
       <label htmlFor="username">Username</label>
-      <input id="username" type="text" />
+      <input
+        {...register('username', {
+          required: 'Username Address is required',
+          maxLength: {
+            value: 20,
+            message: 'The length of the username must be no more than 20 characters',
+          },
+          minLength: {
+            value: 3,
+            message: 'The length of the username must be more than 8 characters',
+          },
+        })}
+        id="username"
+        type="text"
+      />
+      {errors.username && <span className="error">{errors.username.message}</span>}
       <label htmlFor="email">Email</label>
-      <input id="email" type="email" />
-
+      <input
+        id="email"
+        type="email"
+        {...register('email', {
+          required: 'Email Address is required',
+          pattern: {
+            value:
+              /^(([^<>()[\].,;:\s@"]+(\.[^<>()[\].,;:\s@"]+)*)|(".+"))@(([^<>()[\].,;:\s@"]+\.)+[^<>()[\].,;:\s@"]{2,})$/iu,
+            message: 'Enter correct email address',
+          },
+          minLength: {
+            value: 8,
+            message: 'The length of the email must be more than 8 characters',
+          },
+        })}
+      />
+      {errors.email && <span className="error">{errors.email.message}</span>}
       <label htmlFor="password">Password</label>
-      <input id="password" type="password" />
-
-      <label htmlFor="repeat-password">Repeat Password</label>
-      <input id="repeat-password" type="password" />
+      <input
+        id="password"
+        type="password"
+        {...register('password', {
+          required: 'Password is required',
+          pattern: {
+            value: /(?=.*[0-9])(?=.*[!@#$%^&*])(?=.*[a-z])(?=.*[A-Z])[0-9a-zA-Z!@#$%^&*]{8,}/g,
+            message: 'At least one letter, one digit, one special character',
+          },
+          minLength: {
+            value: 8,
+            message: 'The length of the email must be more than 8 characters',
+          },
+        })}
+      />
+      {errors.password && <span className="error">{errors.password.message}</span>}
+      <label htmlFor="repeat_password">Repeat Password</label>
+      <input
+        id="repeat_password"
+        type="password"
+        {...register('repeat_password', {
+          required: true,
+          validate: (value: string) => {
+            return watch('password') === value || 'Passwords should match!';
+          },
+        })}
+      />
+      {errors.repeat_password && <span className="error">{errors.repeat_password.message}</span>}
       <label htmlFor="terms">
-        <input id="terms" type="checkbox" />
+        <input
+          id="terms"
+          type="checkbox"
+          {...register('terms', { required: 'You must agree with the terms' })}
+        />
         <span />
         <span>
           I agree to the <a href="/">Terms of User</a>
         </span>
       </label>
+      {errors.terms && <span className="error">{errors.terms.message}</span>}
       <StyledWrapper>
-        <Button primary>Sign up </Button>
-        <Button primary={false}>Sign in </Button>
+        <Button type="submit" primary>
+          Sign up
+        </Button>
+        <Link to="/signin">
+          <Button primary={false}>Sign in </Button>
+        </Link>
       </StyledWrapper>
     </StyledForm>
   );
