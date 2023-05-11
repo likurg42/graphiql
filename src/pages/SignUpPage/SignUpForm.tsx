@@ -1,6 +1,9 @@
 import styled from 'styled-components';
 import { useForm } from 'react-hook-form';
-import { Link } from 'react-router-dom';
+import { Link, useNavigate } from 'react-router-dom';
+import { useEffect } from 'react';
+import { useAuthState } from 'react-firebase-hooks/auth';
+import { auth, registerWithEmailAndPassword } from '../../firebase.ts';
 import Button from '../../components/Button';
 
 const StyledForm = styled.form`
@@ -95,13 +98,22 @@ interface FormData {
 }
 
 export const SignUpForm = () => {
+  const [user, loading] = useAuthState(auth);
+  const navigate = useNavigate();
+  useEffect(() => {
+    if (loading) return;
+    if (user) navigate('/console', { replace: true });
+  }, [user, loading, navigate]);
   const {
     register,
     handleSubmit,
     watch,
     formState: { errors },
   } = useForm<FormData>({ reValidateMode: 'onSubmit' });
-  const onSubmit = (data: FormData) => console.log(data);
+  const onSubmit = (data: FormData) => {
+    const { email, username, password } = data;
+    registerWithEmailAndPassword(username, email, password);
+  };
   return (
     <StyledForm noValidate onSubmit={handleSubmit(onSubmit)}>
       <label htmlFor="username">Username</label>

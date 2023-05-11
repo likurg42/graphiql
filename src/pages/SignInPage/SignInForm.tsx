@@ -1,5 +1,8 @@
 import styled from 'styled-components';
-import { Link } from 'react-router-dom';
+import { Link, useNavigate } from 'react-router-dom';
+import { useEffect, useState } from 'react';
+import { useAuthState } from 'react-firebase-hooks/auth';
+import { auth, logInWithEmailAndPassword } from '../../firebase.ts';
 import Button from '../../components/Button';
 
 const StyledForm = styled.form`
@@ -67,15 +70,39 @@ const StyledWrapper = styled.div`
 `;
 
 export const SignInForm = () => {
+  const [email, setEmail] = useState('');
+  const [password, setPassword] = useState('');
+  const [user, loading] = useAuthState(auth);
+  const navigate = useNavigate();
+  useEffect(() => {
+    if (loading) {
+      // maybe trigger a loading screen
+      return;
+    }
+    if (user) navigate('/console');
+  }, [user, loading, navigate]);
+
   return (
-    <StyledForm>
-      <label htmlFor="username">Username</label>
-      <input id="username" type="text" />
+    <StyledForm
+      onSubmit={(e) => {
+        e.preventDefault();
+        logInWithEmailAndPassword(email, password);
+      }}
+    >
+      <label htmlFor="email">Email</label>
+      <input id="username" type="email" value={email} onChange={(e) => setEmail(e.target.value)} />
 
       <label htmlFor="password">Password</label>
-      <input id="password" type="password" />
+      <input
+        id="password"
+        type="password"
+        value={password}
+        onChange={(e) => setPassword(e.target.value)}
+      />
       <StyledWrapper>
-        <Button primary>Sign in </Button>
+        <Button primary type="submit">
+          Sign in
+        </Button>
         <Link to="/signup">
           <Button primary={false}>Sign up</Button>
         </Link>
