@@ -1,6 +1,7 @@
 import styled from 'styled-components';
+import { useForm } from 'react-hook-form';
 import { Link, useNavigate } from 'react-router-dom';
-import { useEffect, useState } from 'react';
+import { useEffect } from 'react';
 import { useAuthState } from 'react-firebase-hooks/auth';
 import { auth, logInWithEmailAndPassword } from '../../firebase.ts';
 import Button from '../../components/Button';
@@ -26,12 +27,25 @@ const StyledForm = styled.form`
       margin-bottom: 20px;
     }
   }
+  & .input-wrap.error {
+    display: inline-block;
+    position: relative;
+    margin-bottom: 10px;
+    &:after {
+      position: absolute;
+      right: 5px;
+      top: 13px;
+      content: url('/error.svg');
+      display: inline-block;
+    }
+  }
   & input {
+    width: 100%;
     border: 1px solid #000000;
     padding: 13px 10px;
     font-size: 20px;
     border-radius: 0;
-    margin-bottom: 30px;
+    margin-bottom: 10px;
     &:focus {
       outline: none;
     }
@@ -62,43 +76,67 @@ const StyledForm = styled.form`
       text-decoration: underline;
     }
   }
+  & .error-message {
+    font-size: 12px;
+    color: red;
+    margin-bottom: 10px;
+  }
 `;
 
 const StyledWrapper = styled.div`
   display: flex;
   justify-content: space-between;
 `;
-
+interface LoginData {
+  email: string;
+  password: string;
+}
 export const SignInForm = () => {
-  const [email, setEmail] = useState('');
-  const [password, setPassword] = useState('');
-  const [user, loading] = useAuthState(auth);
+  const {
+    register,
+    handleSubmit,
+    formState: { errors },
+  } = useForm<LoginData>({ reValidateMode: 'onSubmit' });
+  const [user] = useAuthState(auth);
   const navigate = useNavigate();
   useEffect(() => {
-    if (loading) {
-      // maybe trigger a loading screen
-      return;
-    }
     if (user) navigate('/console');
-  }, [user, loading, navigate]);
+  }, [user, navigate]);
+  const onSubmit = (data: LoginData) => {
+    const { email, password } = data;
+    logInWithEmailAndPassword(email, password);
+  };
 
   return (
-    <StyledForm
-      onSubmit={(e) => {
-        e.preventDefault();
-        logInWithEmailAndPassword(email, password);
-      }}
-    >
+    <StyledForm noValidate onSubmit={handleSubmit(onSubmit)}>
       <label htmlFor="email">Email</label>
-      <input id="username" type="email" value={email} onChange={(e) => setEmail(e.target.value)} />
+      <span className={errors.email ? 'input-wrap error' : 'input-wrap'}>
+        <input
+          id="email"
+          type="email"
+          {...register('email', {
+            required: 'Email Address is required',
+            pattern: {
+              value:
+                /^(([^<>()[\].,;:\s@"]+(\.[^<>()[\].,;:\s@"]+)*)|(".+"))@(([^<>()[\].,;:\s@"]+\.)+[^<>()[\].,;:\s@"]{2,})$/iu,
+              message: 'Enter correct email address',
+            },
+          })}
+        />
+        {errors.email && <span className="error-message">{errors.email.message}</span>}
+      </span>
 
       <label htmlFor="password">Password</label>
-      <input
-        id="password"
-        type="password"
-        value={password}
-        onChange={(e) => setPassword(e.target.value)}
-      />
+      <span className={errors.password ? 'input-wrap error' : 'input-wrap'}>
+        <input
+          id="password"
+          type="password"
+          {...register('password', {
+            required: 'Password is required',
+          })}
+        />
+        {errors.password && <span className="error-message">{errors.password.message}</span>}
+      </span>
       <StyledWrapper>
         <Button primary type="submit">
           Sign in
