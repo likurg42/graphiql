@@ -3,7 +3,7 @@ import { useForm } from 'react-hook-form';
 import { Link, useNavigate } from 'react-router-dom';
 import { useEffect } from 'react';
 import { useAuthState } from 'react-firebase-hooks/auth';
-import { auth, logInWithEmailAndPassword } from '../../firebase.ts';
+import { auth, logInWithEmailAndPassword, signInWithGoogle } from '../../firebase.ts';
 import Button from '../../components/Button';
 
 const StyledForm = styled.form`
@@ -86,6 +86,7 @@ const StyledForm = styled.form`
 const StyledWrapper = styled.div`
   display: flex;
   justify-content: space-between;
+  margin-bottom: 10px;
 `;
 interface LoginData {
   email: string;
@@ -145,6 +146,9 @@ export const SignInForm = () => {
           <Button primary={false}>Sign up</Button>
         </Link>
       </StyledWrapper>
+      <Button type="button" onClick={signInWithGoogle}>
+        Login with Google
+      </Button>
     </StyledForm>
   );
 };

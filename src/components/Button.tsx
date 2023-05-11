@@ -23,13 +23,21 @@ const StyledButton = styled.button<ButtonProps>`
 `;
 
 interface ButtonProps {
-  primary: boolean;
+  primary?: boolean;
   children: React.ReactNode;
   type?: 'reset' | 'submit' | 'button';
+  onClick?: () => void;
+  className?: string;
 }
 
-const Button: React.FC<ButtonProps> = ({ primary, children, type = 'button' }) => (
-  <StyledButton type={type} primary={primary}>
+const Button: React.FC<ButtonProps> = ({
+  primary = false,
+  children,
+  type = 'button',
+  className,
+  onClick,
+}) => (
+  <StyledButton onClick={onClick} className={className} type={type} primary={primary}>
     {children}
   </StyledButton>
 );
