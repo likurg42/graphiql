@@ -31,7 +31,8 @@
     "react-firebase-hooks": "^5.1.1",
     "react-hook-form": "^7.43.9",
     "react-router-dom": "^6.11.1",
-    "styled-components": "^5.3.10"
+    "styled-components": "^5.3.10",
+    "sweetalert2": "^11.7.5"
   },
   "devDependencies": {
     "@types/react": "^18.0.28",

@@ -9,6 +9,7 @@ import {
   signOut,
 } from 'firebase/auth';
 import { getFirestore, query, getDocs, collection, where, addDoc } from 'firebase/firestore';
+import { Modal } from './components/Modal.ts';
 
 const firebaseConfig = {
   apiKey: 'AIzaSyBwVQ-BpCVrJQoGJ_ndWrddS07tmLceA9Q',
@@ -40,8 +41,11 @@ export const signInWithGoogle = async () => {
     }
   } catch (err) {
     if (err instanceof FirebaseError) {
-      // eslint-disable-next-line no-alert
-      alert(err.message);
+      Modal({
+        title: err.name,
+        text: err.message,
+        icon: 'error',
+      });
     }
   }
 };
@@ -49,11 +53,12 @@ export const logInWithEmailAndPassword = async (email: string, password: string)
   try {
     await signInWithEmailAndPassword(auth, email, password);
   } catch (err) {
-    // тут должен быть кастомный попап который будет выводыть ошибку
-    // планирую сделать универсальынй компонент попапа
     if (err instanceof FirebaseError) {
-      // eslint-disable-next-line no-alert
-      alert(err.message);
+      Modal({
+        title: err.name,
+        text: err.message,
+        icon: 'error',
+      });
     }
   }
 };
@@ -72,33 +77,30 @@ export const registerWithEmailAndPassword = async (
       email,
     });
   } catch (err) {
-    // eslint-disable-next-line no-alert
-    // тут должен быть кастомный попап который будет выводыть ошибку
-    // планирую сделать универсальынй компонент попапа
     if (err instanceof FirebaseError) {
-      // eslint-disable-next-line no-alert
-      alert(err.message);
+      Modal({
+        title: err.name,
+        text: err.message,
+        icon: 'error',
+      });
     }
   }
 };
 export const sendPasswordReset = async (email: string) => {
   try {
     await sendPasswordResetEmail(auth, email);
-    // eslint-disable-next-line no-alert
-    // тут должен быть кастомный попап который будет выводыть ошибку
-    // планирую сделать универсальынй компонент попапа
-    // eslint-disable-next-line no-alert
-    alert('Password reset link sent!');
+    Modal({
+      title: 'Success',
+      text: 'Password reset link sent!',
+      icon: 'success',
+    });
   } catch (err) {
-    // eslint-disable-next-line no-alert
-    // тут должен быть кастомный попап который будет выводыть ошибку
-    // планирую сделать универсальынй компонент попапа
-    // eslint-disable-next-line no-alert, no-console
-    console.error(err);
-    // eslint-disable-next-line no-alert
     if (err instanceof FirebaseError) {
-      // eslint-disable-next-line no-alert
-      alert(err.message);
+      Modal({
+        title: err.name,
+        text: err.message,
+        icon: 'error',
+      });
     }
   }
 };
