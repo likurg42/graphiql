@@ -10,6 +10,7 @@ import {
 } from 'firebase/auth';
 import { getFirestore, query, getDocs, collection, where, addDoc } from 'firebase/firestore';
 import { Modal } from './components/Modal.ts';
+import { Preloader } from './components/Preloader.ts';
 
 const firebaseConfig = {
   apiKey: 'AIzaSyBwVQ-BpCVrJQoGJ_ndWrddS07tmLceA9Q',
@@ -19,7 +20,7 @@ const firebaseConfig = {
   messagingSenderId: '237591451574',
   appId: '1:237591451574:web:4e1caeffc3933ce138d317',
 };
-
+const loader = new Preloader();
 // Initialize Firebase
 const app = initializeApp(firebaseConfig);
 export const auth = getAuth(app);
@@ -51,7 +52,9 @@ export const signInWithGoogle = async () => {
 };
 export const logInWithEmailAndPassword = async (email: string, password: string) => {
   try {
+    loader.show();
     await signInWithEmailAndPassword(auth, email, password);
+    loader.close();
   } catch (err) {
     if (err instanceof FirebaseError) {
       Modal({
@@ -68,6 +71,7 @@ export const registerWithEmailAndPassword = async (
   password: string
 ) => {
   try {
+    loader.show();
     const res = await createUserWithEmailAndPassword(auth, email, password);
     const { user } = res;
     await addDoc(collection(db, 'users'), {
@@ -76,6 +80,7 @@ export const registerWithEmailAndPassword = async (
       authProvider: 'local',
       email,
     });
+    loader.close();
   } catch (err) {
     if (err instanceof FirebaseError) {
       Modal({
@@ -88,7 +93,9 @@ export const registerWithEmailAndPassword = async (
 };
 export const sendPasswordReset = async (email: string) => {
   try {
+    loader.show();
     await sendPasswordResetEmail(auth, email);
+    loader.close();
     Modal({
       title: 'Success',
       text: 'Password reset link sent!',
