@@ -45,7 +45,9 @@ const Header = () => {
   }, [user, loading]);
   return (
     <Wrapper>
-      <Logo>GraphiQL</Logo>
+      <StyledLink to="/">
+        <Logo>GraphiQL</Logo>
+      </StyledLink>
       {user && (
         <>
           <StyledLink to="/playground">Playground</StyledLink>
