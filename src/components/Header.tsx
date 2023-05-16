@@ -1,7 +1,9 @@
 import styled from 'styled-components';
 import { Link } from 'react-router-dom';
 import { useAuthState } from 'react-firebase-hooks/auth';
+import { useEffect } from 'react';
 import { logout, auth } from '../firebase.ts';
+import { Preloader } from './Preloader.ts';
 
 const Wrapper = styled.header`
   display: flex;
@@ -32,7 +34,15 @@ const StyledLink = styled(Link)`
   }
 `;
 const Header = () => {
-  const [user] = useAuthState(auth);
+  const [user, loading] = useAuthState(auth);
+  const loader = new Preloader();
+  useEffect(() => {
+    loader.show();
+    if (!loading) {
+      loader.close();
+    }
+    // eslint-disable-next-line react-hooks/exhaustive-deps
+  }, [user, loading]);
   return (
     <Wrapper>
       <Logo>GraphiQL</Logo>
