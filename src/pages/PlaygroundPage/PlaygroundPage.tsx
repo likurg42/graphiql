@@ -22,11 +22,11 @@ const IdeWrapper = styled.div`
 
 const PlaygroundPage = () => {
   const { url } = usePlayground();
-  const [user] = useAuthState(auth);
+  const [user, loading] = useAuthState(auth);
   const navigate = useNavigate();
   useEffect(() => {
-    if (!user) navigate('/');
-  }, [navigate, user]);
+    if (!loading && !user) navigate('/');
+  }, [loading, navigate, user]);
   return (
     <Container>
       <Url value={url} />
