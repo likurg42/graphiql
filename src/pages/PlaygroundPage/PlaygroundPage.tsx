@@ -5,9 +5,15 @@ import { Ide } from './Ide/Ide.tsx';
 
 const Container = styled.div`
   display: grid;
-  padding: 1rem;
+  margin: 1rem 0;
   grid-template-rows: auto 1fr;
   gap: 1rem;
+`;
+
+const IdeWrapper = styled.div`
+  padding: ${(props) => props.theme.spacing[1]};
+  background-color: ${(props) => props.theme.colors.bgClr};
+  border-radius: ${(props) => props.theme.spacing.borderRadius};
 `;
 
 const PlaygroundPage = () => {
@@ -15,7 +21,9 @@ const PlaygroundPage = () => {
   return (
     <Container>
       <Url value={url} />
-      <Ide />
+      <IdeWrapper>
+        <Ide />
+      </IdeWrapper>
     </Container>
   );
 };
