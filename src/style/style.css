@@ -4,10 +4,14 @@ html {
   font-family: sans-serif;
 }
 
-#root {
-  width: 100%;
+body {
+  height: 100vh;
 }
 
-*{
+#root {
+  height: 100vh;
+}
+
+* {
   box-sizing: border-box;
 }

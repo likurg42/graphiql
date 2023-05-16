@@ -28,7 +28,6 @@ module.exports = {
     '@typescript-eslint',
     'react',
     'react-hooks',
-    'react-refresh',
     'import',
     'prettier',
   ],
@@ -74,6 +73,8 @@ module.exports = {
     'react-hooks/rules-of-hooks': 'error',
     'react-hooks/exhaustive-deps': 'warn',
     /* react-refresh*/
-    'react-refresh/only-export-components': 'warn',
+    // 'react-refresh/only-export-components': 'warn',
+    /* Redux */
+    'no-param-reassign': ['error', { 'props': false }],
   },
 };

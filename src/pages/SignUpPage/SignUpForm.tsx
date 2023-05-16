@@ -13,12 +13,14 @@ const StyledForm = styled.form`
   margin: 0 auto;
   margin-bottom: 60px;
   align-items: stretch;
+
   & label {
     cursor: pointer;
     color: #838b93;
     font-size: 16px;
     font-weight: bold;
     margin-bottom: 10px;
+
     &[for='terms'] {
       display: flex;
       align-items: flex-end;
@@ -27,9 +29,11 @@ const StyledForm = styled.form`
       margin-bottom: 20px;
     }
   }
+
   & .input-wrap.error {
     display: inline-block;
     position: relative;
+
     &:after {
       position: absolute;
       right: 5px;
@@ -38,6 +42,7 @@ const StyledForm = styled.form`
       display: inline-block;
     }
   }
+
   & input {
     width: 100%;
     border: 1px solid #000000;
@@ -46,14 +51,17 @@ const StyledForm = styled.form`
     font-size: 20px;
     border-radius: 0;
     margin-bottom: 10px;
+
     &:focus {
       outline: none;
     }
+
     &[type='checkbox'] {
       width: 0;
       position: absolute;
       opacity: 0;
       z-index: -1;
+
       & + span {
         display: inline-block;
         background-image: url('/checkbox.svg');
@@ -64,19 +72,23 @@ const StyledForm = styled.form`
         height: 22px;
         margin-right: 10px;
       }
+
       &:checked + span {
         background-image: url('/checkbox-checked.svg');
       }
     }
   }
+
   & a {
     text-decoration: none;
     color: inherit;
     font-weight: bold;
+
     &:hover {
       text-decoration: underline;
     }
   }
+
   & .error-message {
     font-size: 12px;
     color: red;
@@ -101,20 +113,24 @@ interface FormData {
 export const SignUpForm = () => {
   const [user, loading] = useAuthState(auth);
   const navigate = useNavigate();
+
   useEffect(() => {
     if (loading) return;
-    if (user) navigate('/console', { replace: true });
+    if (user) navigate('/playground', { replace: true });
   }, [user, loading, navigate]);
+
   const {
     register,
     handleSubmit,
     watch,
     formState: { errors },
   } = useForm<FormData>({ reValidateMode: 'onSubmit' });
+
   const onSubmit = (data: FormData) => {
     const { email, username, password } = data;
     registerWithEmailAndPassword(username, email, password);
   };
+
   return (
     <StyledForm noValidate onSubmit={handleSubmit(onSubmit)}>
       <label htmlFor="username">Username</label>

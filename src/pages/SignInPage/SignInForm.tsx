@@ -13,12 +13,14 @@ const StyledForm = styled.form`
   margin: 0 auto;
   margin-bottom: 60px;
   align-items: stretch;
+
   & label {
     cursor: pointer;
     color: #838b93;
     font-size: 16px;
     font-weight: bold;
     margin-bottom: 10px;
+
     &[for='terms'] {
       display: flex;
       align-items: flex-end;
@@ -27,10 +29,12 @@ const StyledForm = styled.form`
       margin-bottom: 20px;
     }
   }
+
   & .input-wrap.error {
     display: inline-block;
     position: relative;
     margin-bottom: 10px;
+
     &:after {
       position: absolute;
       right: 5px;
@@ -39,6 +43,7 @@ const StyledForm = styled.form`
       display: inline-block;
     }
   }
+
   & input {
     width: 100%;
     border: 1px solid #000000;
@@ -46,13 +51,16 @@ const StyledForm = styled.form`
     font-size: 20px;
     border-radius: 0;
     margin-bottom: 10px;
+
     &:focus {
       outline: none;
     }
+
     &[type='checkbox'] {
       position: absolute;
       opacity: 0;
       z-index: -1;
+
       & + span {
         display: inline-block;
         background-image: url('/checkbox.svg');
@@ -63,19 +71,23 @@ const StyledForm = styled.form`
         height: 22px;
         margin-right: 10px;
       }
+
       &:checked + span {
         background-image: url('/checkbox-checked.svg');
       }
     }
   }
+
   & a {
     text-decoration: none;
     color: inherit;
     font-weight: bold;
+
     &:hover {
       text-decoration: underline;
     }
   }
+
   & .error-message {
     font-size: 12px;
     color: red;
@@ -88,10 +100,12 @@ const StyledWrapper = styled.div`
   justify-content: space-between;
   margin-bottom: 10px;
 `;
+
 interface LoginData {
   email: string;
   password: string;
 }
+
 export const SignInForm = () => {
   const {
     register,
@@ -101,7 +115,7 @@ export const SignInForm = () => {
   const [user] = useAuthState(auth);
   const navigate = useNavigate();
   useEffect(() => {
-    if (user) navigate('/console');
+    if (user) navigate('/playground');
   }, [user, navigate]);
   const onSubmit = (data: LoginData) => {
     const { email, password } = data;
