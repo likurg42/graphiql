@@ -9,6 +9,8 @@ import SignUpPage from './pages/SignUpPage/SignUpPage';
 import SignInPage from './pages/SignInPage/SignInPage';
 
 const Container = styled.div`
+  display: grid;
+  grid-template-rows: auto 1fr auto;
   margin: 0 auto;
   min-height: 100%;
   max-width: 1420px;
@@ -20,7 +22,7 @@ export const App = () => {
       <Header />
       <Routes>
         <Route path="/" element={<HomePage />} />
-        <Route path="/ide" element={<PlaygroundPage />} />
+        <Route path="/playground" element={<PlaygroundPage />} />
         <Route path="/signin" element={<SignInPage />} />
         <Route path="/signup" element={<SignUpPage />} />
         <Route path="*" element={<ErrorPage />} />

@@ -1,3 +1,4 @@
+import { useEffect } from 'react';
 import styled from 'styled-components';
 import { useAuthState } from 'react-firebase-hooks/auth';
 import { useNavigate } from 'react-router-dom';
@@ -13,7 +14,11 @@ const HomeContent = styled.div`
 const HomePage = () => {
   const [user] = useAuthState(auth);
   const navigate = useNavigate();
-  if (user) navigate('/console');
+
+  useEffect(() => {
+    if (user) navigate('/playground');
+  }, [user, navigate]);
+
   return (
     <Content>
       <HomeContent>

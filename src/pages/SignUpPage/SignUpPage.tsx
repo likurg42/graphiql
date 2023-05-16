@@ -3,10 +3,10 @@ import { SignUpForm } from './SignUpForm';
 
 const SignUpPage = () => {
   return (
-    <>
+    <section>
       <Title>Sign Up</Title>
       <SignUpForm />
-    </>
+    </section>
   );
 };
 

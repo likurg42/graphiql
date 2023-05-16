@@ -1,13 +1,17 @@
-import { ApolloProvider } from '@apollo/client';
+import { Provider } from 'react-redux';
 import { BrowserRouter } from 'react-router-dom';
-import { client } from './apollo/ApolloClient.ts';
+import { setupStore } from './store/index.ts';
 import { App } from './App.tsx';
 import './style/style.css';
 
-export const Main = async () => (
-  <ApolloProvider client={client}>
+export const Main = async () => {
+  const store = setupStore();
+
+  return (
     <BrowserRouter>
-      <App />
+      <Provider store={store}>
+        <App />
+      </Provider>
     </BrowserRouter>
-  </ApolloProvider>
-);
+  );
+};
