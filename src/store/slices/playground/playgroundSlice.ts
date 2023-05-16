@@ -48,9 +48,6 @@ export const playgroundSlice = createSlice({
     updateUrl: (state, action: PayloadAction<string>) => {
       state.url = action.payload;
     },
-    updateQuery: (state, action: PayloadAction<string>) => {
-      state.query = action.payload;
-    },
   },
   extraReducers: (builder) => {
     builder
@@ -64,6 +61,7 @@ export const playgroundSlice = createSlice({
         }
       })
       .addCase(performQuery.fulfilled, (state, action) => {
+        state.error = null;
         state.result = action.payload;
         state.loadingState = 'idle';
       });

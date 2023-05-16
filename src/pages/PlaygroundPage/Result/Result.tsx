@@ -6,6 +6,8 @@ const ResultStyled = styled.pre`
 `;
 
 export const Result = () => {
-  const { result } = usePlayground();
-  return <ResultStyled>{JSON.stringify(result, null, 2)}</ResultStyled>;
+  const { result, error, loadingState } = usePlayground();
+  const data = loadingState === 'error' ? error : result;
+
+  return <ResultStyled>{JSON.stringify(data, null, 2)}</ResultStyled>;
 };
