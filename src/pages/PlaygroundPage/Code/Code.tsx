@@ -2,8 +2,13 @@ import { SyntheticEvent } from 'react';
 import styled from 'styled-components';
 
 const Container = styled.textarea`
+  font-family: 'JetBrains Mono', monospace;
+  padding: 0;
+  border: none;
+  border-radius: ${(props) => props.theme.spacing.borderRadius};
+  outline: none;
   white-space: pre;
-  border: 1px solid black;
+  resize: none;
 `;
 
 export const Code = ({ saveChanges }: { saveChanges: (code: string) => void }) => {

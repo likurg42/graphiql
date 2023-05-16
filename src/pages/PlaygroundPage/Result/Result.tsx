@@ -3,6 +3,7 @@ import { usePlayground } from '../../../store/index.ts';
 
 const ResultStyled = styled.pre`
   font-family: 'JetBrains Mono', monospace;
+  overflow-x: auto;
 `;
 
 export const Result = () => {
