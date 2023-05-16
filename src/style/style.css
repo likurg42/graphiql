@@ -15,7 +15,3 @@ body {
 * {
   box-sizing: border-box;
 }
-
-.swal2-container.swal2-backdrop-show, .swal2-container.swal2-noanimation {
-  background: rgba(0,0,0,1);
-}

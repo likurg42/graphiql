@@ -113,4 +113,5 @@ export const sendPasswordReset = async (email: string) => {
 };
 export const logout = async () => {
   signOut(auth);
+  localStorage.clear();
 };

@@ -3,7 +3,6 @@ import { Link } from 'react-router-dom';
 import { useAuthState } from 'react-firebase-hooks/auth';
 import { useEffect } from 'react';
 import { logout, auth } from '../firebase.ts';
-import { Preloader } from './Preloader.ts';
 
 const Wrapper = styled.header`
   display: flex;
@@ -34,15 +33,13 @@ const StyledLink = styled(Link)`
   }
 `;
 const Header = () => {
-  const [user, loading] = useAuthState(auth);
-  const loader = new Preloader();
+  const [user] = useAuthState(auth);
+  const savedUserEmail = localStorage.getItem('savedUserEmail');
   useEffect(() => {
-    loader.show();
-    if (!loading) {
-      loader.close();
+    if (user) {
+      localStorage.setItem('savedUserEmail', `${user.email}`);
     }
-    // eslint-disable-next-line react-hooks/exhaustive-deps
-  }, [user, loading]);
+  }, [user]);
   return (
     <Wrapper>
       <StyledLink to="/">
@@ -59,7 +56,18 @@ const Header = () => {
           </div>
         </>
       )}
-      {!user && (
+      {!user && savedUserEmail && (
+        <>
+          <StyledLink to="/playground">Playground</StyledLink>
+          <div className="user-info">
+            <div>{savedUserEmail}</div>
+            <button type="button" className="dashboard__btn" onClick={logout}>
+              Logout
+            </button>
+          </div>
+        </>
+      )}
+      {!user && !savedUserEmail && (
         <Nav>
           <StyledLink to="/signin">Sign In</StyledLink>
           <StyledLink to="/signup">Sign Up</StyledLink>
