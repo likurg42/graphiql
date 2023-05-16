@@ -1,10 +1,6 @@
-import { useEffect } from 'react';
 import styled from 'styled-components';
-import { useAuthState } from 'react-firebase-hooks/auth';
-import { useNavigate } from 'react-router-dom';
 import Content from '../../components/Content';
 import Widget from './Widget';
-import { auth } from '../../firebase.ts';
 
 const HomeContent = styled.div`
   padding-top: 100px;
@@ -12,13 +8,6 @@ const HomeContent = styled.div`
 `;
 
 const HomePage = () => {
-  const [user] = useAuthState(auth);
-  const navigate = useNavigate();
-
-  useEffect(() => {
-    if (user) navigate('/playground');
-  }, [user, navigate]);
-
   return (
     <Content>
       <HomeContent>

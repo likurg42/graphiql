@@ -1,8 +1,12 @@
 import styled from 'styled-components';
+import { useAuthState } from 'react-firebase-hooks/auth';
+import { useEffect } from 'react';
+import { useNavigate } from 'react-router-dom';
 import { usePlayground } from '../../store/index.ts';
 import { Url } from './Url/Url.tsx';
 import { Ide } from './Ide/Ide.tsx';
 import { ActionBar } from './ActionBar/ActionBar.tsx';
+import { auth } from '../../firebase.ts';
 
 const Container = styled.div`
   display: grid;
@@ -18,6 +22,11 @@ const IdeWrapper = styled.div`
 
 const PlaygroundPage = () => {
   const { url } = usePlayground();
+  const [user] = useAuthState(auth);
+  const navigate = useNavigate();
+  useEffect(() => {
+    if (!user) navigate('/');
+  }, [navigate, user]);
   return (
     <Container>
       <Url value={url} />

@@ -1,7 +1,6 @@
 import styled from 'styled-components';
-import { Link, useNavigate } from 'react-router-dom';
+import { Link } from 'react-router-dom';
 import { useAuthState } from 'react-firebase-hooks/auth';
-import { useEffect } from 'react';
 import { logout, auth } from '../firebase.ts';
 
 const Wrapper = styled.header`
@@ -34,23 +33,19 @@ const StyledLink = styled(Link)`
 `;
 const Header = () => {
   const [user] = useAuthState(auth);
-  const navigate = useNavigate();
-  useEffect(() => {
-    if (!user) navigate('/');
-    // если добаваить в список зависимостей navigate то не дает перейти на другие страницы
-    // решил пофиксить убрав из зависимотей useEffect эту переменную
-    // eslint-disable-next-line react-hooks/exhaustive-deps
-  }, [user]);
   return (
     <Wrapper>
       <Logo>GraphiQL</Logo>
       {user && (
-        <div className="user-info">
-          <div>{user.email}</div>
-          <button type="button" className="dashboard__btn" onClick={logout}>
-            Logout
-          </button>
-        </div>
+        <>
+          <StyledLink to="/playground">Playground</StyledLink>
+          <div className="user-info">
+            <div>{user.email}</div>
+            <button type="button" className="dashboard__btn" onClick={logout}>
+              Logout
+            </button>
+          </div>
+        </>
       )}
       {!user && (
         <Nav>
