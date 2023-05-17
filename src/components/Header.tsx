@@ -2,8 +2,8 @@ import styled from 'styled-components';
 import { Link } from 'react-router-dom';
 import { useAuthState } from 'react-firebase-hooks/auth';
 import { useEffect } from 'react';
-import { logout, auth } from '../firebase.ts';
 import { useTranslation } from 'react-i18next';
+import { logout, auth } from '../firebase.ts';
 
 const Wrapper = styled.header`
   display: flex;
@@ -37,7 +37,8 @@ const Header = () => {
   const { t, i18n } = useTranslation();
   const changeLanguage = (lng: string | undefined) => {
     i18n.changeLanguage(lng);
-  }
+  };
+
   const [user] = useAuthState(auth);
   const savedUserEmail = localStorage.getItem('savedUserEmail');
   useEffect(() => {
@@ -50,15 +51,29 @@ const Header = () => {
       <StyledLink to="/">
         <Logo>GraphiQL</Logo>
       </StyledLink>
-      <button type='button' onClick={() => {changeLanguage('en')}}>en</button>
-      <button type='button' onClick={() => {changeLanguage('fr')}}>fr</button>
+      <button
+        type="button"
+        onClick={() => {
+          changeLanguage('en');
+        }}
+      >
+        en
+      </button>
+      <button
+        type="button"
+        onClick={() => {
+          changeLanguage('ru');
+        }}
+      >
+        ru
+      </button>
       {user && (
         <>
           <StyledLink to="/playground">Playground</StyledLink>
           <div className="user-info">
             <div>{user.email}</div>
             <button type="button" className="dashboard__btn" onClick={logout}>
-              {t('Welcome to React')}
+              {t('Log out')}
             </button>
           </div>
         </>
@@ -69,7 +84,7 @@ const Header = () => {
           <div className="user-info">
             <div>{savedUserEmail}</div>
             <button type="button" className="dashboard__btn" onClick={logout}>
-              Logout
+              {t('Log out')}
             </button>
           </div>
         </>
