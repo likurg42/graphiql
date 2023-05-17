@@ -1,4 +1,5 @@
 import styled from 'styled-components';
+import { useTranslation } from 'react-i18next';
 import Content from '../../components/Content';
 import Widget from './Widget';
 
@@ -8,15 +9,12 @@ const HomeContent = styled.div`
 `;
 
 const HomePage = () => {
+  const { t } = useTranslation();
   return (
     <Content>
       <HomeContent>
-        <h1>Lorem ipsum dolor sit amet consectetur adipisicing elit</h1>
-        <p>
-          Lorem ipsum dolor sit amet consectetur adipisicing elit. Ullam, aut molestiae quos aliquam
-          suscipit deserunt earum eaque, quis debitis, ab pariatur maiores eius culpa quae. Officia
-          fugiat quos tempore ratione.
-        </p>
+        <h1>{t('Home title')}</h1>
+        <p>{t('Home paragraph')}</p>
         <Widget />
       </HomeContent>
     </Content>

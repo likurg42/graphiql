@@ -8,6 +8,9 @@ const resources = {
       'Sign in': 'Sign in',
       'Sign up': 'Sign up',
       'Loading...': 'Loading...',
+      'Home title': 'Interactive GraphQL tool',
+      'Home paragraph':
+        'An interactive web dashboard for developing, testing and documenting GraphQL queries. Investigate, compose and submit requests and get responses in real time',
       '404 Ops': '404 Ops',
       'Back to home page': 'Back to home page',
       Email: 'Email',
@@ -27,6 +30,9 @@ const resources = {
       'Sign in': 'Войти',
       'Sign up': 'Регистрация',
       'Loading...': 'Загрузка...',
+      'Home title': 'Интерактивный инструмент GraphQL',
+      'Home paragraph':
+        'Интерактивная веб панель для разработки, тестирования и документирования запросов GraphQL. Иследуйте, составляйте и отправляйте запросы, a также получайте ответы в режиме реального врмемни',
       '404 Ops': '404 Упс',
       'Back to home page': 'Вернуться на главную страницу',
       Email: 'Электронная почта',
