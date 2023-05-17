@@ -3,6 +3,7 @@ import { useForm } from 'react-hook-form';
 import { Link, useNavigate } from 'react-router-dom';
 import { useEffect } from 'react';
 import { useAuthState } from 'react-firebase-hooks/auth';
+import { useTranslation } from 'react-i18next';
 import { auth, logInWithEmailAndPassword, signInWithGoogle } from '../../firebase.ts';
 import Button from '../../components/Button';
 
@@ -107,6 +108,7 @@ interface LoginData {
 }
 
 export const SignInForm = () => {
+  const { t } = useTranslation();
   const {
     register,
     handleSubmit,
@@ -124,7 +126,7 @@ export const SignInForm = () => {
 
   return (
     <StyledForm noValidate onSubmit={handleSubmit(onSubmit)}>
-      <label htmlFor="email">Email</label>
+      <label htmlFor="email">{t('Email')}</label>
       <span className={errors.email ? 'input-wrap error' : 'input-wrap'}>
         <input
           id="email"
@@ -141,7 +143,7 @@ export const SignInForm = () => {
         {errors.email && <span className="error-message">{errors.email.message}</span>}
       </span>
 
-      <label htmlFor="password">Password</label>
+      <label htmlFor="password">{t('Password')}</label>
       <span className={errors.password ? 'input-wrap error' : 'input-wrap'}>
         <input
           id="password"
@@ -154,14 +156,14 @@ export const SignInForm = () => {
       </span>
       <StyledWrapper>
         <Button primary type="submit">
-          Sign in
+          {t('Sign in')}
         </Button>
         <Link to="/signup">
-          <Button primary={false}>Sign up</Button>
+          <Button primary={false}>{t('Sign up')}</Button>
         </Link>
       </StyledWrapper>
       <Button type="button" onClick={signInWithGoogle}>
-        Login with Google
+        {t('Login with Google')}
       </Button>
     </StyledForm>
   );

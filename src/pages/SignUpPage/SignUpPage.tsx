@@ -1,10 +1,12 @@
+import { useTranslation } from 'react-i18next';
 import Title from '../../components/Title';
 import { SignUpForm } from './SignUpForm';
 
 const SignUpPage = () => {
+  const { t } = useTranslation();
   return (
     <section>
-      <Title>Sign Up</Title>
+      <Title>{t('Sign up')}</Title>
       <SignUpForm />
     </section>
   );

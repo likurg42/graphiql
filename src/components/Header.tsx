@@ -91,8 +91,8 @@ const Header = () => {
       )}
       {!user && !savedUserEmail && (
         <Nav>
-          <StyledLink to="/signin">Sign In</StyledLink>
-          <StyledLink to="/signup">Sign Up</StyledLink>
+          <StyledLink to="/signin">{t('Sign in')}</StyledLink>
+          <StyledLink to="/signup">{t('Sign up')}</StyledLink>
         </Nav>
       )}
     </Wrapper>

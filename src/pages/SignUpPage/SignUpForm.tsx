@@ -3,6 +3,7 @@ import { useForm } from 'react-hook-form';
 import { Link, useNavigate } from 'react-router-dom';
 import { useEffect } from 'react';
 import { useAuthState } from 'react-firebase-hooks/auth';
+import { useTranslation } from 'react-i18next';
 import { auth, registerWithEmailAndPassword, signInWithGoogle } from '../../firebase.ts';
 import Button from '../../components/Button';
 
@@ -111,6 +112,8 @@ interface FormData {
 }
 
 export const SignUpForm = () => {
+  const { t } = useTranslation();
+
   const [user, loading] = useAuthState(auth);
   const navigate = useNavigate();
 
@@ -133,7 +136,7 @@ export const SignUpForm = () => {
 
   return (
     <StyledForm noValidate onSubmit={handleSubmit(onSubmit)}>
-      <label htmlFor="username">Username</label>
+      <label htmlFor="username">{t('Username')}</label>
       <span className={errors.username ? 'input-wrap error' : 'input-wrap'}>
         <input
           {...register('username', {
@@ -152,7 +155,7 @@ export const SignUpForm = () => {
         />
         {errors.username && <span className="error-message">{errors.username.message}</span>}
       </span>
-      <label htmlFor="email">Email</label>
+      <label htmlFor="email">{t('Email')}</label>
       <span className={errors.email ? 'input-wrap error' : 'input-wrap'}>
         <input
           id="email"
@@ -173,7 +176,7 @@ export const SignUpForm = () => {
         {errors.email && <span className="error-message">{errors.email.message}</span>}
       </span>
 
-      <label htmlFor="password">Password</label>
+      <label htmlFor="password">{t('Password')}</label>
       <span className={errors.password ? 'input-wrap error' : 'input-wrap'}>
         <input
           id="password"
@@ -193,7 +196,7 @@ export const SignUpForm = () => {
         {errors.password && <span className="error-message">{errors.password.message}</span>}
       </span>
 
-      <label htmlFor="repeat_password">Repeat Password</label>
+      <label htmlFor="repeat_password">{t('Repeat password')}</label>
       <span className={errors.repeat_password ? 'input-wrap error' : 'input-wrap'}>
         <input
           id="repeat_password"
@@ -218,20 +221,20 @@ export const SignUpForm = () => {
         />
         <span />
         <span>
-          I agree to the <a href="/">Terms of User</a>
+          {t('I agree to the')} <a href="/">{t('Terms of user')}</a>
         </span>
       </label>
       {errors.terms && <span className="error-message">{errors.terms.message}</span>}
       <StyledWrapper>
         <Button type="submit" primary>
-          Sign up
+          {t('Sign up')}
         </Button>
         <Link to="/signin">
-          <Button primary={false}>Sign in </Button>
+          <Button primary={false}>{t('Sign in')}</Button>
         </Link>
       </StyledWrapper>
       <Button type="button" onClick={signInWithGoogle}>
-        Sign up with Google
+        {t('Sign up with Google')}
       </Button>
     </StyledForm>
   );
