@@ -1,5 +1,5 @@
 import styled from 'styled-components';
-import { Link, useNavigate } from 'react-router-dom';
+import { Link } from 'react-router-dom';
 import { useAuthState } from 'react-firebase-hooks/auth';
 import { useEffect } from 'react';
 import { logout, auth } from '../firebase.ts';
@@ -34,25 +34,40 @@ const StyledLink = styled(Link)`
 `;
 const Header = () => {
   const [user] = useAuthState(auth);
-  const navigate = useNavigate();
+  const savedUserEmail = localStorage.getItem('savedUserEmail');
   useEffect(() => {
-    if (!user) navigate('/');
-    // если добаваить в список зависимостей navigate то не дает перейти на другие страницы
-    // решил пофиксить убрав из зависимотей useEffect эту переменную
-    // eslint-disable-next-line react-hooks/exhaustive-deps
+    if (user) {
+      localStorage.setItem('savedUserEmail', `${user.email}`);
+    }
   }, [user]);
   return (
     <Wrapper>
-      <Logo>GraphiQL</Logo>
+      <StyledLink to="/">
+        <Logo>GraphiQL</Logo>
+      </StyledLink>
       {user && (
-        <div className="user-info">
-          <div>{user.email}</div>
-          <button type="button" className="dashboard__btn" onClick={logout}>
-            Logout
-          </button>
-        </div>
+        <>
+          <StyledLink to="/playground">Playground</StyledLink>
+          <div className="user-info">
+            <div>{user.email}</div>
+            <button type="button" className="dashboard__btn" onClick={logout}>
+              Logout
+            </button>
+          </div>
+        </>
       )}
-      {!user && (
+      {!user && savedUserEmail && (
+        <>
+          <StyledLink to="/playground">Playground</StyledLink>
+          <div className="user-info">
+            <div>{savedUserEmail}</div>
+            <button type="button" className="dashboard__btn" onClick={logout}>
+              Logout
+            </button>
+          </div>
+        </>
+      )}
+      {!user && !savedUserEmail && (
         <Nav>
           <StyledLink to="/signin">Sign In</StyledLink>
           <StyledLink to="/signup">Sign Up</StyledLink>
