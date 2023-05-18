@@ -3,7 +3,7 @@ import { useForm } from 'react-hook-form';
 import { Link, useNavigate } from 'react-router-dom';
 import { useEffect } from 'react';
 import { useAuthState } from 'react-firebase-hooks/auth';
-import { useTranslation } from 'react-i18next';
+import { t } from 'i18next';
 import { auth, logInWithEmailAndPassword, signInWithGoogle } from '../../firebase.ts';
 import Button from '../../components/Button';
 
@@ -108,7 +108,6 @@ interface LoginData {
 }
 
 export const SignInForm = () => {
-  const { t } = useTranslation();
   const {
     register,
     handleSubmit,
@@ -132,11 +131,11 @@ export const SignInForm = () => {
           id="email"
           type="email"
           {...register('email', {
-            required: 'Email Address is required',
+            required: `${t('Email Address is required')}`,
             pattern: {
               value:
                 /^(([^<>()[\].,;:\s@"]+(\.[^<>()[\].,;:\s@"]+)*)|(".+"))@(([^<>()[\].,;:\s@"]+\.)+[^<>()[\].,;:\s@"]{2,})$/iu,
-              message: 'Enter correct email address',
+              message: `${t('Enter correct email address')}`,
             },
           })}
         />
@@ -149,7 +148,7 @@ export const SignInForm = () => {
           id="password"
           type="password"
           {...register('password', {
-            required: 'Password is required',
+            required: `${t('Password is required')}`,
           })}
         />
         {errors.password && <span className="error-message">{errors.password.message}</span>}

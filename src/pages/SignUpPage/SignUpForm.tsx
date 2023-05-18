@@ -140,14 +140,14 @@ export const SignUpForm = () => {
       <span className={errors.username ? 'input-wrap error' : 'input-wrap'}>
         <input
           {...register('username', {
-            required: 'Username Address is required',
+            required: `${t('Username is required')}`,
             maxLength: {
               value: 20,
-              message: 'The length of the username must be no more than 20 characters',
+              message: `${t('The length of the username must be no more than 20 characters')}`,
             },
             minLength: {
               value: 3,
-              message: 'The length of the username must be more than 8 characters',
+              message: `${t('The length of the username must be more than 8 characters')}`,
             },
           })}
           id="username"
@@ -161,15 +161,15 @@ export const SignUpForm = () => {
           id="email"
           type="email"
           {...register('email', {
-            required: 'Email Address is required',
+            required: `${t('Email Address is required')}`,
             pattern: {
               value:
                 /^(([^<>()[\].,;:\s@"]+(\.[^<>()[\].,;:\s@"]+)*)|(".+"))@(([^<>()[\].,;:\s@"]+\.)+[^<>()[\].,;:\s@"]{2,})$/iu,
-              message: 'Enter correct email address',
+              message: `${t('Enter correct email address')}`,
             },
             minLength: {
               value: 8,
-              message: 'The length of the email must be more than 8 characters',
+              message: `${t('The length of the email must be more than 8 characters')}`,
             },
           })}
         />
@@ -182,14 +182,14 @@ export const SignUpForm = () => {
           id="password"
           type="password"
           {...register('password', {
-            required: 'Password is required',
+            required: `${t('Password is required')}`,
             pattern: {
               value: /[1,9]/g,
-              message: 'At least one letter, one digit, one special character',
+              message: `${t('At least one letter, one digit, one special character')}`,
             },
             minLength: {
               value: 8,
-              message: 'The length of the email must be more than 8 characters',
+              message: `${t('The length of the password must be more than 8 characters')}`,
             },
           })}
         />
@@ -217,7 +217,7 @@ export const SignUpForm = () => {
         <input
           id="terms"
           type="checkbox"
-          {...register('terms', { required: 'You must agree with the terms' })}
+          {...register('terms', { required: `${t('You must agree with the terms')}` })}
         />
         <span />
         <span>

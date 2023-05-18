@@ -4,24 +4,9 @@ import { initReactI18next } from 'react-i18next';
 const resources = {
   en: {
     translation: {
-      'Log out': 'Log out',
-      'Sign in': 'Sign in',
-      'Sign up': 'Sign up',
-      'Loading...': 'Loading...',
       'Home title': 'Interactive GraphQL tool',
       'Home paragraph':
         'An interactive web dashboard for developing, testing and documenting GraphQL queries. Investigate, compose and submit requests and get responses in real time',
-      '404 Ops': '404 Ops',
-      'Back to home page': 'Back to home page',
-      Email: 'Email',
-      Username: 'Username',
-      Password: 'Password',
-      'Repeat password': 'Repeat password',
-      'I agree to the': 'I agree to the',
-      'Terms of user': 'Terms of User',
-      'Login with Google': 'Login with Google',
-      'Sign up with Google': 'Sign up with Google',
-      // 'Email Address is required': 'Email Address is required',
     },
   },
   ru: {
@@ -43,7 +28,21 @@ const resources = {
       'Terms of user': 'Условиями использования',
       'Login with Google': 'Войти c помощью Google',
       'Sign up with Google': 'Регистрация c помощью Google',
-      // 'Email Address is required': 'Укажите электронную почту',
+      'Username is required': 'Введите имя пользователя',
+      'The length of the username must be no more than 20 characters':
+        'Длина имени пользователя должна быть не более 20 символов',
+      'The length of the username must be more than 8 characters':
+        'Длина имени пользователя должна быть более 8 символов',
+      'Email Address is required': 'Укажите электронную почту',
+      'Enter correct email address': 'Введите корректный адрес электронной почты',
+      'The length of the email must be more than 8 characters':
+        'Длинана электронной почты должна быть более 8 символов',
+      'Password is required': 'Введите пароль',
+      'At least one letter, one digit, one special character':
+        'Хотя бы одна буква, одна цифра, один специальный символ',
+      'The length of the password must be more than 8 characters':
+        'Длина пароля должна быть более 8 символов',
+      'You must agree with the terms': 'Вы должны принять условия использования',
     },
   },
 };
