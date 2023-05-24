@@ -47,22 +47,24 @@ const Header = () => {
       </StyledLink>
       {user && (
         <>
+          <StyledLink to="/">Go to Main Page</StyledLink>
           <StyledLink to="/playground">Playground</StyledLink>
           <div className="user-info">
             <div>{user.email}</div>
             <button type="button" className="dashboard__btn" onClick={logout}>
-              Logout
+              Sign Out
             </button>
           </div>
         </>
       )}
       {!user && savedUserEmail && (
         <>
+          <StyledLink to="/">Go to Main Page</StyledLink>
           <StyledLink to="/playground">Playground</StyledLink>
           <div className="user-info">
             <div>{savedUserEmail}</div>
             <button type="button" className="dashboard__btn" onClick={logout}>
-              Logout
+              Sign Out
             </button>
           </div>
         </>
