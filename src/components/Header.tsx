@@ -1,7 +1,6 @@
 import styled from 'styled-components';
 import { Link } from 'react-router-dom';
 import { useAuthState } from 'react-firebase-hooks/auth';
-import { useEffect } from 'react';
 import { logout, auth } from '../firebase.ts';
 
 const Wrapper = styled.header`
@@ -34,12 +33,6 @@ const StyledLink = styled(Link)`
 `;
 const Header = () => {
   const [user] = useAuthState(auth);
-  const savedUserEmail = localStorage.getItem('savedUserEmail');
-  useEffect(() => {
-    if (user) {
-      localStorage.setItem('savedUserEmail', `${user.email}`);
-    }
-  }, [user]);
   return (
     <Wrapper>
       <StyledLink to="/">
@@ -57,19 +50,7 @@ const Header = () => {
           </div>
         </>
       )}
-      {!user && savedUserEmail && (
-        <>
-          <StyledLink to="/">Go to Main Page</StyledLink>
-          <StyledLink to="/playground">Playground</StyledLink>
-          <div className="user-info">
-            <div>{savedUserEmail}</div>
-            <button type="button" className="dashboard__btn" onClick={logout}>
-              Sign Out
-            </button>
-          </div>
-        </>
-      )}
-      {!user && !savedUserEmail && (
+      {!user && (
         <Nav>
           <StyledLink to="/signin">Sign In</StyledLink>
           <StyledLink to="/signup">Sign Up</StyledLink>
