@@ -1,8 +1,9 @@
 import { useTranslation, withTranslation } from 'react-i18next';
 import { Link } from 'react-router-dom';
 import styled from 'styled-components';
+import { useAuthState } from 'react-firebase-hooks/auth';
 import { ButtonAccent } from '../../components/ButtonAccent';
-import { useLocalStorage } from '../../utils/hooks/useLocalStorage';
+import { auth } from '../../firebase.ts';
 
 const StyledLink = styled(Link)`
   display: block;
@@ -14,11 +15,11 @@ const StyledLink = styled(Link)`
 
 const Widget = () => {
   const { t } = useTranslation();
-  const [userEmail] = useLocalStorage<string>('savedUserEmail', '');
+  const [user, loading] = useAuthState(auth);
 
   return (
     <ButtonAccent type="button">
-      {userEmail ? (
+      {user && !loading ? (
         <StyledLink to="/playground">{t('Go to playground')}</StyledLink>
       ) : (
         <StyledLink to="/signup">{t('Sign up')}</StyledLink>
