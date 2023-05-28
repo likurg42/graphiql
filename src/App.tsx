@@ -1,15 +1,17 @@
 import { Routes, Route } from 'react-router-dom';
 import styled from 'styled-components';
 import { useTranslation } from 'react-i18next';
-import { useCallback, useEffect } from 'react';
-import ErrorPage from './pages/ErrorPage/ErrorPage';
-import HomePage from './pages/HomePage/HomePage';
-import PlaygroundPage from './pages/PlaygroundPage/PlaygroundPage';
+import { useCallback, useEffect, lazy, Suspense } from 'react';
 import Header from './components/Header';
 import Footer from './components/Footer';
-import SignUpPage from './pages/SignUpPage/SignUpPage';
-import SignInPage from './pages/SignInPage/SignInPage';
 import { useLocalStorage } from './utils/hooks/useLocalStorage';
+import { PageLoader } from './components/PageLoader';
+
+const HomePage = lazy(() => import('./pages/HomePage/HomePage'));
+const ErrorPage = lazy(() => import('./pages/ErrorPage/ErrorPage'));
+const PlaygroundPage = lazy(() => import('./pages/PlaygroundPage/PlaygroundPage'));
+const SignUpPage = lazy(() => import('./pages/SignUpPage/SignUpPage'));
+const SignInPage = lazy(() => import('./pages/SignInPage/SignInPage'));
 
 const Container = styled.div`
   display: grid;
@@ -38,11 +40,46 @@ export const App = () => {
     <Container>
       <Header />
       <Routes>
-        <Route path="/" element={<HomePage />} />
-        <Route path="/playground" element={<PlaygroundPage />} />
-        <Route path="/signin" element={<SignInPage />} />
-        <Route path="/signup" element={<SignUpPage />} />
-        <Route path="*" element={<ErrorPage />} />
+        <Route
+          path="/"
+          element={
+            <Suspense fallback={<PageLoader />}>
+              <HomePage />
+            </Suspense>
+          }
+        />
+        <Route
+          path="/playground"
+          element={
+            <Suspense fallback={<PageLoader />}>
+              <PlaygroundPage />
+            </Suspense>
+          }
+        />
+        <Route
+          path="/signin"
+          element={
+            <Suspense fallback={<PageLoader />}>
+              <SignInPage />
+            </Suspense>
+          }
+        />
+        <Route
+          path="/signup"
+          element={
+            <Suspense fallback={<PageLoader />}>
+              <SignUpPage />
+            </Suspense>
+          }
+        />
+        <Route
+          path="*"
+          element={
+            <Suspense fallback={<PageLoader />}>
+              <ErrorPage />
+            </Suspense>
+          }
+        />
       </Routes>
       <Footer />
     </Container>

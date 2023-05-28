@@ -1,6 +1,7 @@
 import styled from 'styled-components';
 import { useTranslation } from 'react-i18next';
 import Widget from './Widget';
+import LogoImg from '../../assets/imgs/graphql-logo-black.png';
 
 const Content = styled.div`
   padding: 20px;
@@ -35,7 +36,7 @@ const HomePage = () => {
         <Widget />
       </HomeContent>
       <LogoWrapper>
-        <Logo src="src/assets/imgs/graphql-logo-black.png" alt="Logo" />
+        <Logo src={LogoImg} alt="Logo" />
       </LogoWrapper>
     </Content>
   );
