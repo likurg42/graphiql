@@ -8,7 +8,7 @@
     "build": "tsc  && vite build",
     "lint": "eslint src --ext ts,tsx",
     "lint:fix": "eslint --fix",
-    "lint:type": "tsc-files",
+    "lint:type": "tsc-files --noEmit index.d.ts",
     "type-lint": "tsc",
     "preview": "vite preview",
     "test": "vitest --run  --passWithNoTests",
