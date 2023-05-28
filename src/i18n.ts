@@ -7,6 +7,7 @@ const resources = {
       'Home title': 'Interactive GraphQL tool',
       'Home paragraph':
         'An interactive web dashboard for developing, testing and documenting GraphQL queries. Investigate, compose and submit requests and get responses in real time',
+      'Main Page': 'Main Page',
     },
   },
   ru: {
@@ -53,10 +54,10 @@ const resources = {
 
 i18n.use(initReactI18next).init({
   resources,
-  lng: 'en',
   interpolation: {
     escapeValue: false,
   },
+  lng: 'en',
 });
 
 export default i18n;

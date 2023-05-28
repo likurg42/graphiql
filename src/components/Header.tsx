@@ -61,6 +61,9 @@ const User = styled.div`
 
 const Header = () => {
   const { t, i18n } = useTranslation();
+  const [userEmail, setUserEmail] = useLocalStorage<string>('savedUserEmail', '');
+  const [, setLanguage] = useLocalStorage<string>('language', 'en');
+  const [user, loading] = useAuthState(auth);
 
   const changeLanguage = useCallback(
     (lng: string | undefined) => {
@@ -68,10 +71,6 @@ const Header = () => {
     },
     [i18n]
   );
-
-  const [userEmail, setUserEmail] = useLocalStorage<string>('savedUserEmail', '');
-  const [language, setLanguage] = useLocalStorage<string>('language', 'en');
-  const [user, loading] = useAuthState(auth);
 
   useEffect(() => {
     if (user?.email && !loading) {
@@ -83,9 +82,10 @@ const Header = () => {
     }
   }, [user, setUserEmail, loading]);
 
-  useEffect(() => {
+  const handleChangeLanguage = (language: string) => {
+    setLanguage(language);
     changeLanguage(language);
-  }, [language, changeLanguage]);
+  };
 
   const handleLogout = () => {
     logout();
@@ -101,7 +101,7 @@ const Header = () => {
           <ButtonAccent
             type="button"
             onClick={() => {
-              setLanguage('en');
+              handleChangeLanguage('en');
             }}
           >
             en
@@ -109,7 +109,7 @@ const Header = () => {
           <ButtonAccent
             type="button"
             onClick={() => {
-              setLanguage('ru');
+              handleChangeLanguage('ru');
             }}
           >
             ru
