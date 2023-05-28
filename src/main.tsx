@@ -6,7 +6,7 @@ import { App } from './App.tsx';
 import './style/style.css';
 import { mainTheme } from './style/mainTheme.ts';
 
-export const Main = async () => {
+export const Main = () => {
   const store = setupStore();
 
   return (

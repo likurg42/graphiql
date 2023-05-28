@@ -2,10 +2,10 @@ import ReactDOM from 'react-dom/client';
 import { Main } from './main.tsx';
 import './i18n.ts';
 
-const run = async () => {
+const run = () => {
   const root = ReactDOM.createRoot(document.getElementById('root') as HTMLElement);
-  const dom = await Main();
+  const dom = Main();
   root.render(dom);
 };
 
-await run();
+run();
