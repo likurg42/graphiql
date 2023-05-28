@@ -1,5 +1,6 @@
 import { Link } from 'react-router-dom';
 import styled from 'styled-components';
+import { useTranslation } from 'react-i18next';
 import Content from '../../components/Content';
 
 const ErrorContent = styled.div`
@@ -8,13 +9,16 @@ const ErrorContent = styled.div`
   max-width: 150px;
 `;
 
-const ErrorPage = () => (
-  <Content>
-    <ErrorContent>
-      <h2>404 Ops</h2>
-      <Link to="/">Back to home page</Link>
-    </ErrorContent>
-  </Content>
-);
+const ErrorPage = () => {
+  const { t } = useTranslation();
+  return (
+    <Content>
+      <ErrorContent>
+        <h2>{t('404 Ops')}</h2>
+        <Link to="/">{t('Back to home page')}</Link>
+      </ErrorContent>
+    </Content>
+  );
+};
 
 export default ErrorPage;

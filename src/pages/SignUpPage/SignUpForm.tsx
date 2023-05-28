@@ -3,6 +3,7 @@ import { useForm } from 'react-hook-form';
 import { Link, useNavigate } from 'react-router-dom';
 import { useEffect } from 'react';
 import { useAuthState } from 'react-firebase-hooks/auth';
+import { useTranslation } from 'react-i18next';
 import { auth, registerWithEmailAndPassword, signInWithGoogle } from '../../firebase.ts';
 import Button from '../../components/Button';
 
@@ -111,6 +112,8 @@ interface FormData {
 }
 
 export const SignUpForm = () => {
+  const { t } = useTranslation();
+
   const [user, loading] = useAuthState(auth);
   const navigate = useNavigate();
 
@@ -133,18 +136,18 @@ export const SignUpForm = () => {
 
   return (
     <StyledForm noValidate onSubmit={handleSubmit(onSubmit)}>
-      <label htmlFor="username">Username</label>
+      <label htmlFor="username">{t('Username')}</label>
       <span className={errors.username ? 'input-wrap error' : 'input-wrap'}>
         <input
           {...register('username', {
-            required: 'Username Address is required',
+            required: `${t('Username is required')}`,
             maxLength: {
               value: 20,
-              message: 'The length of the username must be no more than 20 characters',
+              message: `${t('The length of the username must be no more than 20 characters')}`,
             },
             minLength: {
               value: 3,
-              message: 'The length of the username must be more than 8 characters',
+              message: `${t('The length of the username must be more than 8 characters')}`,
             },
           })}
           id="username"
@@ -152,48 +155,48 @@ export const SignUpForm = () => {
         />
         {errors.username && <span className="error-message">{errors.username.message}</span>}
       </span>
-      <label htmlFor="email">Email</label>
+      <label htmlFor="email">{t('Email')}</label>
       <span className={errors.email ? 'input-wrap error' : 'input-wrap'}>
         <input
           id="email"
           type="email"
           {...register('email', {
-            required: 'Email Address is required',
+            required: `${t('Email Address is required')}`,
             pattern: {
               value:
                 /^(([^<>()[\].,;:\s@"]+(\.[^<>()[\].,;:\s@"]+)*)|(".+"))@(([^<>()[\].,;:\s@"]+\.)+[^<>()[\].,;:\s@"]{2,})$/iu,
-              message: 'Enter correct email address',
+              message: `${t('Enter correct email address')}`,
             },
             minLength: {
               value: 8,
-              message: 'The length of the email must be more than 8 characters',
+              message: `${t('The length of the email must be more than 8 characters')}`,
             },
           })}
         />
         {errors.email && <span className="error-message">{errors.email.message}</span>}
       </span>
 
-      <label htmlFor="password">Password</label>
+      <label htmlFor="password">{t('Password')}</label>
       <span className={errors.password ? 'input-wrap error' : 'input-wrap'}>
         <input
           id="password"
           type="password"
           {...register('password', {
-            required: 'Password is required',
+            required: `${t('Password is required')}`,
             pattern: {
-              value: /(?=.*[0-9])(?=.*[!@#$%^&*])(?=.*[a-z])(?=.*[A-Z])[0-9a-zA-Z!@#$%^&*]{8,}/g,
-              message: 'At least one letter, one digit, one special character',
+              value: /[1,9]/g,
+              message: `${t('At least one letter, one digit, one special character')}`,
             },
             minLength: {
               value: 8,
-              message: 'The length of the email must be more than 8 characters',
+              message: `${t('The length of the password must be more than 8 characters')}`,
             },
           })}
         />
         {errors.password && <span className="error-message">{errors.password.message}</span>}
       </span>
 
-      <label htmlFor="repeat_password">Repeat Password</label>
+      <label htmlFor="repeat_password">{t('Repeat password')}</label>
       <span className={errors.repeat_password ? 'input-wrap error' : 'input-wrap'}>
         <input
           id="repeat_password"
@@ -214,24 +217,24 @@ export const SignUpForm = () => {
         <input
           id="terms"
           type="checkbox"
-          {...register('terms', { required: 'You must agree with the terms' })}
+          {...register('terms', { required: `${t('You must agree with the terms')}` })}
         />
         <span />
         <span>
-          I agree to the <a href="/">Terms of User</a>
+          {t('I agree to the')} <a href="/">{t('Terms of user')}</a>
         </span>
       </label>
       {errors.terms && <span className="error-message">{errors.terms.message}</span>}
       <StyledWrapper>
         <Button type="submit" primary>
-          Sign up
+          {t('Sign up')}
         </Button>
         <Link to="/signin">
-          <Button primary={false}>Sign in </Button>
+          <Button primary={false}>{t('Sign in')}</Button>
         </Link>
       </StyledWrapper>
       <Button type="button" onClick={signInWithGoogle}>
-        Sign up with Google
+        {t('Sign up with Google')}
       </Button>
     </StyledForm>
   );

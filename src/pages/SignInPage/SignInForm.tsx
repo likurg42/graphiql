@@ -3,6 +3,7 @@ import { useForm } from 'react-hook-form';
 import { Link, useNavigate } from 'react-router-dom';
 import { useEffect } from 'react';
 import { useAuthState } from 'react-firebase-hooks/auth';
+import { t } from 'i18next';
 import { auth, logInWithEmailAndPassword, signInWithGoogle } from '../../firebase.ts';
 import Button from '../../components/Button';
 
@@ -124,44 +125,44 @@ export const SignInForm = () => {
 
   return (
     <StyledForm noValidate onSubmit={handleSubmit(onSubmit)}>
-      <label htmlFor="email">Email</label>
+      <label htmlFor="email">{t('Email')}</label>
       <span className={errors.email ? 'input-wrap error' : 'input-wrap'}>
         <input
           id="email"
           type="email"
           {...register('email', {
-            required: 'Email Address is required',
+            required: `${t('Email Address is required')}`,
             pattern: {
               value:
                 /^(([^<>()[\].,;:\s@"]+(\.[^<>()[\].,;:\s@"]+)*)|(".+"))@(([^<>()[\].,;:\s@"]+\.)+[^<>()[\].,;:\s@"]{2,})$/iu,
-              message: 'Enter correct email address',
+              message: `${t('Enter correct email address')}`,
             },
           })}
         />
         {errors.email && <span className="error-message">{errors.email.message}</span>}
       </span>
 
-      <label htmlFor="password">Password</label>
+      <label htmlFor="password">{t('Password')}</label>
       <span className={errors.password ? 'input-wrap error' : 'input-wrap'}>
         <input
           id="password"
           type="password"
           {...register('password', {
-            required: 'Password is required',
+            required: `${t('Password is required')}`,
           })}
         />
         {errors.password && <span className="error-message">{errors.password.message}</span>}
       </span>
       <StyledWrapper>
         <Button primary type="submit">
-          Sign in
+          {t('Sign in')}
         </Button>
         <Link to="/signup">
-          <Button primary={false}>Sign up</Button>
+          <Button primary={false}>{t('Sign up')}</Button>
         </Link>
       </StyledWrapper>
       <Button type="button" onClick={signInWithGoogle}>
-        Login with Google
+        {t('Login with Google')}
       </Button>
     </StyledForm>
   );
