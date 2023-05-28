@@ -37,6 +37,7 @@
     "react-i18next": "^12.2.2",
     "react-redux": "^8.0.5",
     "react-router-dom": "^6.11.1",
+    "react-spinners": "^0.13.8",
     "styled-components": "^5.3.10",
     "sweetalert2": "^11.7.5"
   },
