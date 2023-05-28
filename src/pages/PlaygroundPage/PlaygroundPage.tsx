@@ -5,7 +5,6 @@ import { useNavigate } from 'react-router-dom';
 import { usePlayground } from '../../store/index.ts';
 import { Url } from './Url/Url.tsx';
 import { Ide } from './Ide/Ide.tsx';
-import { ActionBar } from './ActionBar/ActionBar.tsx';
 import { auth } from '../../firebase.ts';
 
 const Container = styled.div`
@@ -17,7 +16,7 @@ const Container = styled.div`
 
 const IdeWrapper = styled.div`
   display: grid;
-  grid-template-columns: 60px 1fr;
+  grid-template-columns: 1fr;
 `;
 
 const PlaygroundPage = () => {
@@ -31,7 +30,6 @@ const PlaygroundPage = () => {
     <Container>
       <Url value={url} />
       <IdeWrapper>
-        <ActionBar />
         <Ide />
       </IdeWrapper>
     </Container>

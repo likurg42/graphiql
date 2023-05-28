@@ -5,7 +5,7 @@ import { Result } from '../Result/Result.tsx';
 const Container = styled.section`
   display: grid;
   grid-template-columns: repeat(2, 1fr);
-  grid-template-rows: auto;
+  grid-template-rows: 100%;
   gap: 1rem;
 
   padding: ${(props) => props.theme.spacing[1]};

@@ -4,6 +4,8 @@ import axios from 'axios';
 interface PlaygroundState {
   url: string;
   query: string;
+  headers: string;
+  variables: string;
   result: object;
   loadingState: 'idle' | 'pending' | 'error';
   error: null | ValidationError;
@@ -11,22 +13,48 @@ interface PlaygroundState {
 
 interface ValidationError {
   message: string;
-  errors: Record<string, string[]>;
+  errors?: Record<string, string[]>;
 }
+
+const parseObject = (item: string) => (item.length > 0 ? JSON.parse(item) : {});
 
 const performQuery = createAsyncThunk<
   object,
-  string,
-  { state: { playground: PlaygroundState }; rejectValue: ValidationError }
->('todos/performQuery', async (query: string, { rejectWithValue, getState }) => {
+  {
+    query: string;
+    variables: string;
+    headers: string;
+  },
+  {
+    state: {
+      playground: PlaygroundState;
+    };
+    rejectValue: ValidationError;
+  }
+>('todos/performQuery', async (queryData, { rejectWithValue, getState }) => {
   try {
     const { url } = getState().playground;
-    const { data } = await axios.post<{ data: object }>(url, { query });
+    const { query, variables, headers } = queryData;
+    const parsedVariables = parseObject(variables);
+    const parsedHeaders = parseObject(headers);
+    const { data } = await axios.post<{
+      data: object;
+    }>(
+      url,
+      { query, variables: parsedVariables },
+      {
+        headers: parsedHeaders,
+      }
+    );
 
     return data;
   } catch (e) {
     if (axios.isAxiosError<ValidationError, Record<string, unknown>>(e) && e.response) {
       return rejectWithValue(e.response.data);
+    }
+
+    if (e instanceof Error) {
+      return rejectWithValue({ message: e.message });
     }
 
     return 'Something Wrong';
@@ -35,6 +63,8 @@ const performQuery = createAsyncThunk<
 
 const initialState: PlaygroundState = {
   query: '',
+  headers: '',
+  variables: '',
   result: {},
   loadingState: 'idle',
   error: null,
