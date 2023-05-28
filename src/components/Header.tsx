@@ -4,6 +4,7 @@ import { useAuthState } from 'react-firebase-hooks/auth';
 import { useEffect } from 'react';
 import { useTranslation } from 'react-i18next';
 import { logout, auth } from '../firebase.ts';
+import { useLocalStorage } from '../utils/hooks/useLocalStorage.tsx';
 
 const Wrapper = styled.header`
   display: flex;
@@ -38,15 +39,22 @@ const Header = () => {
   const changeLanguage = (lng: string | undefined) => {
     i18n.changeLanguage(lng);
   };
+  const [userEmail, setUserEmail] = useLocalStorage<string>('savedUserEmail', '');
+  const [user, loading] = useAuthState(auth);
 
-  const [user] = useAuthState(auth);
-
-  const savedUserEmail = localStorage.getItem('savedUserEmail');
   useEffect(() => {
-    if (user) {
-      localStorage.setItem('savedUserEmail', `${user.email}`);
+    if (user?.email && !loading) {
+      setUserEmail(user.email);
     }
-  }, [user]);
+
+    if (!user && !loading) {
+      setUserEmail('');
+    }
+  }, [user, setUserEmail, loading]);
+
+  const handleLogout = () => {
+    logout();
+  };
 
   return (
     <Wrapper>
@@ -75,24 +83,24 @@ const Header = () => {
           <StyledLink to="/playground">Playground</StyledLink>
           <div className="user-info">
             <div>{user.email}</div>
-            <button type="button" className="dashboard__btn" onClick={logout}>
+            <button type="button" className="dashboard__btn" onClick={handleLogout}>
               {t('Log out')}
             </button>
           </div>
         </>
       )}
-      {!user && savedUserEmail && (
+      {!user && userEmail && (
         <>
           <StyledLink to="/playground">Playground</StyledLink>
           <div className="user-info">
-            <div>{savedUserEmail}</div>
-            <button type="button" className="dashboard__btn" onClick={logout}>
+            <div>{userEmail}</div>
+            <button type="button" className="dashboard__btn" onClick={handleLogout}>
               {t('Log out')}
             </button>
           </div>
         </>
       )}
-      {!user && !savedUserEmail && (
+      {!user && !userEmail && (
         <Nav>
           <StyledLink to="/signin">{t('Sign in')}</StyledLink>
           <StyledLink to="/signup">{t('Sign up')}</StyledLink>
