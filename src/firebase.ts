@@ -83,9 +83,11 @@ export const registerWithEmailAndPassword = async (
     loader.close();
   } catch (err) {
     if (err instanceof FirebaseError) {
+      const text =
+        err.code === 'auth/email-already-in-use' ? 'Email already in use' : 'Network Error';
       Modal({
-        title: err.name,
-        text: err.message,
+        title: 'Error',
+        text,
         icon: 'error',
       });
     }

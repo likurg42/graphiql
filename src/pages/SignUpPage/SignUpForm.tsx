@@ -191,7 +191,7 @@ export const SignUpForm = () => {
           {...register('password', {
             required: `${t('Password is required')}`,
             pattern: {
-              value: /[1,9]/g,
+              value: /^(?=.*[A-Za-z])(?=.*\d)(?=.*[@$!%*#?&])[A-Za-z\d@$!%*#?&]{8,}$/g,
               message: `${t('At least one letter, one digit, one special character')}`,
             },
             minLength: {
