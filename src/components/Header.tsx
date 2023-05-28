@@ -40,12 +40,14 @@ const Header = () => {
   };
 
   const [user] = useAuthState(auth);
+
   const savedUserEmail = localStorage.getItem('savedUserEmail');
   useEffect(() => {
     if (user) {
       localStorage.setItem('savedUserEmail', `${user.email}`);
     }
   }, [user]);
+
   return (
     <Wrapper>
       <StyledLink to="/">
@@ -69,6 +71,7 @@ const Header = () => {
       </button>
       {user && (
         <>
+          <StyledLink to="/">Go to Main Page</StyledLink>
           <StyledLink to="/playground">Playground</StyledLink>
           <div className="user-info">
             <div>{user.email}</div>
