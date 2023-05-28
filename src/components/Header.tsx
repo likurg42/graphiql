@@ -5,7 +5,7 @@ import { useEffect } from 'react';
 import { useTranslation } from 'react-i18next';
 import { logout, auth } from '../firebase.ts';
 import { useLocalStorage } from '../utils/hooks/useLocalStorage.tsx';
-import { ButtonAccent } from './ButtonHeader.tsx';
+import { ButtonAccent } from './ButtonAccent.tsx';
 
 const Wrapper = styled.header`
   display: flex;
