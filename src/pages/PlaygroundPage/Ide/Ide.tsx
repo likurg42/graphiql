@@ -13,6 +13,10 @@ const Container = styled.section`
   border-radius: ${(props) => props.theme.spacing.borderRadius.lg};
 
   overflow: hidden;
+  @media screen and (max-width: 768px) {
+    grid-template-columns: 1fr;
+    grid-template-rows: 400px 400px;
+  }
 `;
 
 export const Ide = () => (
