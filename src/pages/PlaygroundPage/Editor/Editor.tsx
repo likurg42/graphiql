@@ -1,6 +1,7 @@
 import { useMemo } from 'react';
 import styled from 'styled-components';
 import { useForm } from 'react-hook-form';
+import { useTranslation } from 'react-i18next';
 import { QueryButton } from '../QueryButton/QueryButton.tsx';
 import { usePlayground } from '../../../store/index.ts';
 import { Code } from '../Code/Code.tsx';
@@ -38,6 +39,7 @@ type EditorForm = {
 };
 
 export const Editor = () => {
+  const { t } = useTranslation();
   const { performQuery } = usePlayground();
   const { register, handleSubmit } = useForm<EditorForm>({});
 
@@ -53,15 +55,15 @@ export const Editor = () => {
   const tabs = useMemo(
     () => [
       {
-        title: 'Variables',
+        title: t('Variables'),
         element: <Code {...register('variables')} />,
       },
       {
-        title: 'Headers',
+        title: t('Headers'),
         element: <Code {...register('headers')} />,
       },
     ],
-    [register]
+    [register, t]
   );
 
   return (

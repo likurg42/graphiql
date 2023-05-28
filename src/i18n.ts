@@ -7,6 +7,7 @@ const resources = {
       'Home title': 'Interactive GraphQL tool',
       'Home paragraph':
         'An interactive web dashboard for developing, testing and documenting GraphQL queries. Investigate, compose and submit requests and get responses in real time',
+      'Main Page': 'Main Page',
     },
   },
   ru: {
@@ -43,16 +44,20 @@ const resources = {
       'The length of the password must be more than 8 characters':
         'Длина пароля должна быть более 8 символов',
       'You must agree with the terms': 'Вы должны принять условия использования',
+      'Main Page': 'Главная',
+      Playground: 'Редактор',
+      Variables: 'Переменные',
+      Headers: 'Заголовки',
     },
   },
 };
 
 i18n.use(initReactI18next).init({
   resources,
-  lng: 'en',
   interpolation: {
     escapeValue: false,
   },
+  lng: 'en',
 });
 
 export default i18n;
