@@ -3,6 +3,9 @@ import styled from 'styled-components';
 import { UseFormRegisterReturn } from 'react-hook-form';
 
 const Container = styled.textarea`
+  display: block;
+  width: 100%;
+  height: 100%;
   font-family: 'JetBrains Mono', monospace;
   padding: 0;
   border: none;

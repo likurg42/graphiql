@@ -16,11 +16,12 @@ type ContainerProps = {
 
 const Container = styled.div`
   width: 100%;
-  min-height: ${(props: ContainerProps) => props.open && '150px'};
+  min-height: ${(props: ContainerProps) => (props.open ? '150px' : '0')};
 `;
 
 const InputWrapper = styled.div`
   padding-top: 1rem;
+  width: 100%;
 `;
 
 type SubTitleProps = {
@@ -41,21 +42,27 @@ const SubTitle = styled.button`
   `}
 `;
 
+type EditorProps = {
+  active: boolean;
+};
+
+const Editor = styled.div`
+  display: ${(props: EditorProps) => (props.active ? 'block' : 'none')};
+  height: 150px;
+`;
+
 export const Tabs = ({ tabList }: TabsProps) => {
   const [tabName, setTabName] = useState<string | null>(null);
-  const [component, setComponent] = useState<JSX.Element | null>(null);
 
   const handleChangeTab = (title: string) => {
     if (tabName === title) {
       setTabName(null);
-      setComponent(null);
     }
 
     if (tabName !== title) {
-      setTabName(title);
       const currentTab = tabList.find((t) => t.title === title);
       if (currentTab) {
-        setComponent(currentTab.element);
+        setTabName(title);
       }
     }
   };
@@ -74,7 +81,13 @@ export const Tabs = ({ tabList }: TabsProps) => {
           </SubTitle>
         ))}
       </div>
-      <InputWrapper>{component}</InputWrapper>
+      <InputWrapper>
+        {tabList.map((t) => (
+          <Editor key={`editor-${t.title}`} active={t.title === tabName}>
+            {t.element}
+          </Editor>
+        ))}
+      </InputWrapper>
     </Container>
   );
 };
