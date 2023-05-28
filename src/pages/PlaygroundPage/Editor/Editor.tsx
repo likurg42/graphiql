@@ -18,12 +18,20 @@ const Form = styled.form`
   box-shadow: 0 6px 20px rgba(59, 76, 106, 0.13), 0 1.34018px 4.46726px rgba(59, 76, 106, 0.08),
     0 0.399006px 1.33002px rgba(59, 76, 106, 0.05);
   overflow: hidden;
+  @media screen and (max-width: 768px) {
+    display: flex;
+    flex-direction: column;
+  }
 `;
 
 const Toolbar = styled.div`
   display: flex;
   flex-direction: column;
   align-items: center;
+  @media screen and (max-width: 768px) {
+    order: -1;
+    align-items: flex-start;
+  }
 `;
 
 const Settings = styled.div`

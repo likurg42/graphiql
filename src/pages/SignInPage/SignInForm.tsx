@@ -10,7 +10,9 @@ import Button from '../../components/Button';
 const StyledForm = styled.form`
   display: flex;
   flex-direction: column;
-  width: 386px;
+  width: 100%;
+  padding: 1rem;
+  max-width: 500px;
   margin: 0 auto;
   margin-bottom: 60px;
   align-items: stretch;
@@ -98,8 +100,13 @@ const StyledForm = styled.form`
 
 const StyledWrapper = styled.div`
   display: flex;
+  flex-wrap: wrap;
   justify-content: space-between;
   margin-bottom: 10px;
+`;
+
+const LinkPrimary = styled(Link)`
+  width: 100%;
 `;
 
 interface LoginData {
@@ -157,9 +164,9 @@ export const SignInForm = () => {
         <Button primary type="submit">
           {t('Sign in')}
         </Button>
-        <Link to="/signup">
+        <LinkPrimary to="/signup">
           <Button primary={false}>{t('Sign up')}</Button>
-        </Link>
+        </LinkPrimary>
       </StyledWrapper>
       <Button type="button" onClick={signInWithGoogle}>
         {t('Login with Google')}

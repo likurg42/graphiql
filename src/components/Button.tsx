@@ -1,6 +1,7 @@
 import styled from 'styled-components';
 
 const StyledButton = styled.button<ButtonProps>`
+  width: 100%;
   color: ${({ primary }) => (primary ? '#ffffff' : '#838B93')};
   text-align: center;
   background-color: ${({ primary }) => (primary ? '#838B93' : 'ffffff')};
