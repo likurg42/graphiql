@@ -10,7 +10,9 @@ import Button from '../../components/Button';
 const StyledForm = styled.form`
   display: flex;
   flex-direction: column;
-  width: 386px;
+  width: 100%;
+  padding: 1rem;
+  max-width: 500px;
   margin: 0 auto;
   margin-bottom: 60px;
   align-items: stretch;
@@ -99,6 +101,7 @@ const StyledForm = styled.form`
 
 const StyledWrapper = styled.div`
   display: flex;
+  flex-wrap: wrap;
   justify-content: space-between;
   margin-bottom: 10px;
 `;
@@ -110,6 +113,10 @@ interface FormData {
   repeat_password: string;
   terms: boolean;
 }
+
+const LinkPrimary = styled(Link)`
+  width: 100%;
+`;
 
 export const SignUpForm = () => {
   const { t } = useTranslation();
@@ -229,9 +236,9 @@ export const SignUpForm = () => {
         <Button type="submit" primary>
           {t('Sign up')}
         </Button>
-        <Link to="/signin">
+        <LinkPrimary to="/signin">
           <Button primary={false}>{t('Sign in')}</Button>
-        </Link>
+        </LinkPrimary>
       </StyledWrapper>
       <Button type="button" onClick={signInWithGoogle}>
         {t('Sign up with Google')}
