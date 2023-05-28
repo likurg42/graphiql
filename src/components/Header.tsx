@@ -1,7 +1,7 @@
 import styled from 'styled-components';
 import { Link } from 'react-router-dom';
 import { useAuthState } from 'react-firebase-hooks/auth';
-import { useEffect } from 'react';
+import { useCallback, useEffect } from 'react';
 import { useTranslation } from 'react-i18next';
 import { logout, auth } from '../firebase.ts';
 import { useLocalStorage } from '../utils/hooks/useLocalStorage.tsx';
@@ -61,9 +61,14 @@ const User = styled.div`
 
 const Header = () => {
   const { t, i18n } = useTranslation();
-  const changeLanguage = (lng: string | undefined) => {
-    i18n.changeLanguage(lng);
-  };
+
+  const changeLanguage = useCallback(
+    (lng: string | undefined) => {
+      i18n.changeLanguage(lng);
+    },
+    [i18n]
+  );
+
   const [userEmail, setUserEmail] = useLocalStorage<string>('savedUserEmail', '');
   const [language, setLanguage] = useLocalStorage<string>('language', 'en');
   const [user, loading] = useAuthState(auth);
