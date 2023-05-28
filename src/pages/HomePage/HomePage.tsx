@@ -6,6 +6,7 @@ const Content = styled.div`
   padding: 20px;
   display: flex;
   align-items: center;
+  justify-content: space-around;
   gap: 1rem;
 `;
 
@@ -21,6 +22,7 @@ const Logo = styled.img`
   display: block;
   height: auto;
   width: 100%;
+  max-width: 300px;
 `;
 
 const HomePage = () => {
