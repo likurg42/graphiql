@@ -54,8 +54,9 @@ const LeftSide = styled.div`
 
 const User = styled.div`
   display: flex;
+  /* margin-left: auto; */
   flex-direction: column;
-  align-items: flex-end;
+  align-items: flex-start;
   gap: 0.5rem;
 `;
 
