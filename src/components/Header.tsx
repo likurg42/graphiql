@@ -65,6 +65,7 @@ const Header = () => {
     i18n.changeLanguage(lng);
   };
   const [userEmail, setUserEmail] = useLocalStorage<string>('savedUserEmail', '');
+  const [language, setLanguage] = useLocalStorage<string>('language', 'en');
   const [user, loading] = useAuthState(auth);
 
   useEffect(() => {
@@ -76,6 +77,10 @@ const Header = () => {
       setUserEmail('');
     }
   }, [user, setUserEmail, loading]);
+
+  useEffect(() => {
+    changeLanguage(language);
+  }, [language, changeLanguage]);
 
   const handleLogout = () => {
     logout();
@@ -91,7 +96,7 @@ const Header = () => {
           <ButtonAccent
             type="button"
             onClick={() => {
-              changeLanguage('en');
+              setLanguage('en');
             }}
           >
             en
@@ -99,7 +104,7 @@ const Header = () => {
           <ButtonAccent
             type="button"
             onClick={() => {
-              changeLanguage('ru');
+              setLanguage('ru');
             }}
           >
             ru
