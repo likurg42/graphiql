@@ -43,6 +43,10 @@ const resources = {
       'The length of the password must be more than 8 characters':
         'Длина пароля должна быть более 8 символов',
       'You must agree with the terms': 'Вы должны принять условия использования',
+      'Main Page': 'Главная',
+      Playground: 'Редактор',
+      Variables: 'Переменные',
+      Headers: 'Заголовки',
     },
   },
 };

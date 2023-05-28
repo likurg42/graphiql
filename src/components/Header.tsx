@@ -109,8 +109,8 @@ const Header = () => {
       {userEmail && (
         <>
           <Nav>
-            <StyledLink to="/">Main Page</StyledLink>
-            <StyledLink to="/playground">Playground</StyledLink>
+            <StyledLink to="/">{t('Main Page')}</StyledLink>
+            <StyledLink to="/playground">{t('Playground')}</StyledLink>
           </Nav>
           <User>
             <div>{userEmail}</div>
